@@ -1,0 +1,50 @@
+.container-login {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFFFFF
+}
+
+.barra-login {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+    background-color: rgb(0, 128, 128);
+    background: -moz-linear-gradient(135deg, rgb(0, 128, 128) 0%, rgb(124, 252, 0) 100%);
+    background: -webkit-linear-gradient(135deg, rgb(0, 128, 128) 0%, rgb(124, 252, 0) 100%);
+    background: linear-gradient(135deg, rgb(0, 128, 128) 0%, rgb(124, 252, 0) 100%);
+    border-radius: 10px 10px 0px 0px;
+}
+
+.box-login{
+    width: 30%;
+    height: 100%;
+    padding: 0;
+}
+
+.box-login Form{
+    padding-right: 3%;
+    padding-left: 3%; 
+}
+
+.label-login{
+    margin-top: 1%;
+}
+
+.btn-estagia{
+    border-radius: 3px;
+    background-image: -moz-linear-gradient( 122deg, rgb(0,128,128) 0%, rgb(124,252,0) 100%);
+    background-image: -webkit-linear-gradient( 122deg, rgb(0,128,128) 0%, rgb(124,252,0) 100%);
+    background-image: -ms-linear-gradient( 122deg, rgb(0,128,128) 0%, rgb(124,252,0) 100%);
+    background-image: linear-gradient( 122deg, rgb(0,128,128) 0%, rgb(124,252,0) 100%);
+    box-shadow: 0px 9px 32px 0px rgba(0, 0, 0, 0.2);
+    font-weight: 500;
+    color: #fff;
+    padding: 0.6rem 2rem;
+    border: 0;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 100%;
+  }
