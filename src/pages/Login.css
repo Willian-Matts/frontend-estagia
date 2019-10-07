@@ -18,27 +18,28 @@
     border-radius: 10px 10px 0px 0px;
 }
 
-.box-login{
+.box-login {
     width: 30%;
     height: 100%;
     padding: 0;
+    margin-top: 10%;
 }
 
-.box-login Form{
+.box-login Form {
     padding-right: 3%;
-    padding-left: 3%; 
+    padding-left: 3%;
 }
 
-.label-login{
+.label-login {
     margin-top: 1%;
 }
 
-.btn-estagia{
+.btn-estagia {
     border-radius: 3px;
-    background-image: -moz-linear-gradient( 122deg, rgb(0,128,128) 0%, rgb(124,252,0) 100%);
-    background-image: -webkit-linear-gradient( 122deg, rgb(0,128,128) 0%, rgb(124,252,0) 100%);
-    background-image: -ms-linear-gradient( 122deg, rgb(0,128,128) 0%, rgb(124,252,0) 100%);
-    background-image: linear-gradient( 122deg, rgb(0,128,128) 0%, rgb(124,252,0) 100%);
+    background-image: -moz-linear-gradient( 122deg, rgb(0, 128, 128) 0%, rgb(124, 252, 0) 100%);
+    background-image: -webkit-linear-gradient( 122deg, rgb(0, 128, 128) 0%, rgb(124, 252, 0) 100%);
+    background-image: -ms-linear-gradient( 122deg, rgb(0, 128, 128) 0%, rgb(124, 252, 0) 100%);
+    background-image: linear-gradient( 122deg, rgb(0, 128, 128) 0%, rgb(124, 252, 0) 100%);
     box-shadow: 0px 9px 32px 0px rgba(0, 0, 0, 0.2);
     font-weight: 500;
     color: #fff;
@@ -47,4 +48,4 @@
     margin-top: 5%;
     margin-bottom: 5%;
     width: 100%;
-  }
+}
