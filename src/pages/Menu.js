@@ -1,29 +1,21 @@
 import React, { useState } from 'react';
 import './css/Menu.css';
 import logoBranca from '../imagens/logoNome.png';
-import { Button, Jumbotron, Container, Form, Navbar } from 'react-bootstrap';
-import { Link} from 'react-router-dom'
-// import Aluno from './Aluno';
+import { Button, Container, Navbar } from 'react-bootstrap';
+import { Link } from 'react-router-dom'
 
-export default function Menu({ history }) {
-    const [rota, setRota] = useState('');
-
-    function handle(e) {
-        e.preventDefault();
-
-        history.push('/Main/Aluno');
-    }
+export default function Menu() {
 
     return (
         <Container className="box-menu">
             <Navbar bgh="ligth" expand="lg" className="barra-menu shadow">
                 <img src={logoBranca} alt="Logo Estagía" />
-                <Link to="/main/aluno">
-                    <li>Aluno</li>
+                <Link className="button-link" to="/main/alunos">
+                    <Button className="button-menu"><h4>Alunos</h4></Button>
                 </Link>
-                <Button className="button-menu">Alunos</Button>
-                <Button className="button-menu">Cadastro</Button>
-
+                <Link className="button-link" to="/main/cadastro">
+                    <Button className="button-menu"><h4>Cadastro</h4></Button>
+                </Link>
             </Navbar>
         </Container>
     );

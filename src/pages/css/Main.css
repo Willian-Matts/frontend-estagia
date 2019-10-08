@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'phenomenaregular';
+    src: url('./phenomena/phenomena-regular-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1 {
+    font-family: "phenomenaregular";
+    color: white;
+}

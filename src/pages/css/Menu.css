@@ -1,3 +1,15 @@
+@font-face {
+    font-family: 'phenomenaregular';
+    src: url('./phenomena/phenomena-regular-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+h4 {
+    font-family: "phenomenaregular";
+    color: white;
+}
+
 .box-menu {
     height: 100%;
     display: flex;
@@ -30,8 +42,13 @@
     border: 0;
     margin-top: 5%;
     margin-bottom: 5%;
+    padding: 1%;
     width: 100%;
     border-radius: 3px;
-    background-color: rgb(0, 128, 128);
+    background-color: rgba(0, 128, 128, 0.623);
     box-shadow: 0px 9px 32px 0px rgba(0, 0, 0, 0.2);
+}
+
+.button-menu:hover{
+    background-color: rgba(126, 252, 0, 0.11);
 }
