@@ -1,0 +1,37 @@
+.box-menu {
+    height: 100%;
+    display: flex;
+    background-color: #FFFFFF;
+    margin: 0%;
+    padding: 0%;
+}
+
+.barra-menu {
+    height: 100%;
+    width: 12%;
+    display: list-item;
+    overflow: hidden;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0, 128, 128);
+    background: -moz-linear-gradient(135deg, rgb(0, 128, 128) 0%, rgb(124, 252, 0) 100%);
+    background: -webkit-linear-gradient(135deg, rgb(0, 128, 128) 0%, rgb(124, 252, 0) 100%);
+    background: linear-gradient(135deg, rgb(0, 128, 128) 0%, rgb(124, 252, 0) 100%);
+}
+
+.box-button {
+    align-items: center;
+}
+
+.button-menu {
+    font-weight: 500;
+    color: #fff;
+    border: 0;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 100%;
+    border-radius: 3px;
+    background-color: rgb(0, 128, 128);
+    box-shadow: 0px 9px 32px 0px rgba(0, 0, 0, 0.2);
+}
