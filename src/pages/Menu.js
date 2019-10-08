@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './css/Menu.css';
-import logoBranca from '../imagens/logoNome.png';
+import logoBranca from '../imagens/logoNomeB.png';
 import { Button, Container, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 

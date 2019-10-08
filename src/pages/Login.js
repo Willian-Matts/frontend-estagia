@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './css/Login.css';
-import logoNome from '../imagens/logoNome.png';
+import logoNome from '../imagens/logoNomeB.png';
 import { Button, Jumbotron, Container, Form, Navbar } from 'react-bootstrap';
 
 export default function Login({ history }) {
