@@ -1,7 +1,7 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import './css/Aluno.css';
 import axios from 'axios';
-import { Row, Button, Jumbotron, Card, Accordion, Container, ListGroup, Navbar,  Col } from 'react-bootstrap';
+import { Row, Button, Jumbotron, Card, Accordion, Container, ListGroup, Navbar, Col } from 'react-bootstrap';
 const APIalunoListar = 'http://localhost:3001/alunos';
 
 export default class Aluno extends Component {
@@ -22,7 +22,7 @@ export default class Aluno extends Component {
     dateFormat(date) {
         let format = date.replace(/T/, " ").split(" ");
         let d = format[0].split("-").reverse().join("-");
-        d += " " + format[1];
+        // d += " " + format[1];
         return d;
     }
 
@@ -30,10 +30,12 @@ export default class Aluno extends Component {
         let datas = this.state.datas;
         return (
             <Jumbotron className="container-lista">
-                <Container className="box-lista shadow">
+                <Container className="box-nav">
                     <Navbar bgh="ligth" expand="lg" className="barra-login shadow">
                         <h1>Lista de Alunos</h1>
                     </Navbar>
+                </Container>
+                <Container className="box-lista shadow">
                     <Jumbotron className="jumbo">
                         <pre>
                             {datas.map((data, i) =>
@@ -51,17 +53,17 @@ export default class Aluno extends Component {
                                                 <Accordion.Collapse eventKey="0">
                                                     <Card.Body >
                                                         <Container>
-                                                            <ListGroup.Item>
+                                                            <ListGroup.Item className="box-card">
                                                                 <Row>
                                                                     <Col xs={4} className="coluna">
                                                                         <p className="p-lista">{`CPF: ${data.CPF_aluno}`}</p>
                                                                     </Col>
-
-                                                                    {/* <Col xs={2} className="coluna">
+{/* 
+                                                                    <Col xs={2} className="coluna">
                                                                         <p className="p-lista">{`RG: ${data.RG_aluno}`}</p>
-                                                                    </Col> */}
+                                                                    </Col>  */}
 
-                                                                    <Col className="coluna">
+                                                                    <Col xs={4} className="coluna">
                                                                         <p className="p-lista">{`Data de nascimento: ${this.dateFormat(data.data_nascimento_aluno)}`}</p>
                                                                     </Col>
                                                                 </Row>
@@ -69,7 +71,7 @@ export default class Aluno extends Component {
                                                         </Container>
 
                                                         <Container>
-                                                            <ListGroup.Item>
+                                                            <ListGroup.Item className="box-card">
                                                                 <Row>
                                                                     <Col className="coluna">
                                                                         <p className="p-lista">{`Endereço: ${data.endereco_aluno}`}</p>
@@ -87,7 +89,7 @@ export default class Aluno extends Component {
                                                         </Container>
 
                                                         <Container>
-                                                            <ListGroup.Item>
+                                                            <ListGroup.Item className="box-card">
                                                                 <Row>
                                                                     <Col className="coluna">
                                                                         <p className="p-lista">{`E-mail: ${data.email_aluno}`}</p>
