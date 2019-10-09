@@ -49,6 +49,7 @@ export default class Aluno extends Component {
                                                     <Accordion.Toggle as={Button} variant="link" eventKey="0">
                                                         <h5 className="h5-form">{data.nome_aluno}</h5>
                                                     </Accordion.Toggle>
+                                                    <h5 className="h5-form">{`Período: ${data.periodo_aluno}º`}</h5>
                                                 </Card.Header>
 
                                                 <Accordion.Collapse eventKey="0">
@@ -78,9 +79,9 @@ export default class Aluno extends Component {
                                                                         <p className="p-lista">{`Endereço: ${data.endereco_aluno}`}</p>
                                                                     </Col>
                                                                     
-                                                                    {/* <Col xs={4} className="coluna">
+                                                                    <Col xs={4} className="coluna">
                                                                         <p className="p-lista">{`Orientador: ${data.nome_orientador_aluno}`}</p>
-                                                                    </Col> */}
+                                                                    </Col>
 
                                                                     <Col xs={4} className="coluna">
                                                                         <p className="p-lista">{`Bairro: ${data.bairro_aluno}`}</p>
