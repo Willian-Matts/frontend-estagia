@@ -28,6 +28,7 @@ export default class Aluno extends Component {
 
     render() {
         let datas = this.state.datas;
+        console.log(datas);
         return (
             <Jumbotron className="container-lista">
                 <Container className="box-nav">
