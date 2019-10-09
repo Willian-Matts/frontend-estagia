@@ -19,7 +19,7 @@ export default function Login({ history }) {
         <Jumbotron className="container-login">
             <Container className="box-login shadow">
                 <Navbar bgh="ligth" expand="lg" className="barra-login shadow">
-                    <img src={logoNome} alt="Estagía"></img>
+                    <img id="logo" src={logoNome} alt="Estagía"></img>
                 </Navbar>
                 <Form onSubmit={hadleSubmit}>
                     <Form.Group controlId="formEmail">
