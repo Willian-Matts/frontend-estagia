@@ -24,6 +24,18 @@ export default class Aluno extends Component {
         });
     }
 
+    async componentDidUpdate(){
+        this.listar();
+
+    }
+
+    async listar(){
+        const { data: datas } = await axios.get(APIalunoListar);
+        return this.setState({
+            datas: datas
+        });
+    }
+
     cadastrar = (event) => {
         event.preventDefault();
 
@@ -46,7 +58,7 @@ export default class Aluno extends Component {
 
             axios.put(APIalunoUpdate + this.state.index, obj);
             this.refs.formAluno.reset();
-            this.componentDidMount();
+            this.componentDidUpdate();
         }
     }
 
@@ -55,7 +67,7 @@ export default class Aluno extends Component {
         axios.delete(APIalunoDelete + aluno);
 
         this.refs.formAluno.reset();
-        this.componentDidMount();
+        this.componentDidUpdate();
     }
 
     editar = (event, aluno, i) => {
