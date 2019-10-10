@@ -159,7 +159,7 @@ export default class Aluno extends Component {
                     <Jumbotron className="jumbo">
                         <pre>
                             {datas.map((data, i) =>
-                                <ListGroup key={i}>
+                                <ListGroup key={data.idaluno}>
                                     <ListGroup.Item className="card">
                                         <Accordion defaultActiveKey="1">
                                             <Card >
