@@ -13,12 +13,15 @@ export default class Aluno extends Component {
             act: 0,
             index: '',
             datas: [],
+            e: 0
         }
     }
 
     async componentDidMount() {
         const { data: datas } = await axios.get(APIalunoListar);
-        return this.setState({ datas });
+        return this.setState({
+            datas: datas
+        });
     }
 
     cadastrar = (event) => {
@@ -42,21 +45,20 @@ export default class Aluno extends Component {
         } else {
 
             axios.put(APIalunoUpdate + this.state.index, obj);
-
             this.refs.formAluno.reset();
-            this.refs.nome.focus();
             this.componentDidMount();
         }
     }
 
-    remover = (event, tarefas) => {
+    remover = (event, aluno) => {
         event.preventDefault();
-        axios.delete(APIalunoDelete + tarefas);
+        axios.delete(APIalunoDelete + aluno);
+
         this.refs.formAluno.reset();
         this.componentDidMount();
     }
 
-    editar = (event, tarefa, i) => {
+    editar = (event, aluno, i) => {
         event.preventDefault();
 
         let data = this.state.datas[i];
@@ -72,10 +74,9 @@ export default class Aluno extends Component {
         this.refs.matricula.value = data.matricula_aluno;
 
         this.setState({
-            index: tarefa,
+            index: aluno,
         });
 
-        this.refs.nome.focus();
     }
 
     dateFormat(date) {
