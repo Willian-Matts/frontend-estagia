@@ -184,3 +184,23 @@ pre {
 .box-card {
   padding: 0;
 }
+
+.p-form {
+  color: black;
+  margin: 0%;
+  font-family: "phenomenaregular";
+  font-size: 120%;
+}
+
+.border-link{
+  width: 100%;
+  border-bottom:0.2vh solid currentColor;
+  border-color: rgb(124,252,0);
+}
+
+#linkCadastro{
+  color: black;
+  font-family: "phenomenaregular";
+  font-size: 20px;
+  margin: 0%;
+}

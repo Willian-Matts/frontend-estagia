@@ -12,7 +12,7 @@ export default function Login({ history }) {
 
         console.log(userEmail, "", userSenha);
 
-        history.push('/main');
+        history.push('/main/alunos');
     }
 
     return (
