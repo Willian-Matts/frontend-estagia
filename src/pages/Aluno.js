@@ -50,7 +50,7 @@ export default class Aluno extends Component {
         }
     }
 
-    remover = (event, aluno) => {
+     remover =  (event, aluno) => {
         event.preventDefault();
         axios.delete(APIalunoDelete + aluno);
 
