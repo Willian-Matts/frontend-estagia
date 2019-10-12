@@ -3,8 +3,8 @@ import './css/Aluno.css';
 import axios from 'axios';
 import { Row, Button, Jumbotron, Card, Accordion, Container, ListGroup, Navbar, Col, Form, } from 'react-bootstrap';
 const APIalunoListar = 'http://localhost:3001/alunos';
-const APIalunoUpdate = 'http://localhost:3001/editar/';
-const APIalunoDelete = 'http://localhost:3001/delete/';
+const APIalunoUpdate = 'http://localhost:3001/editarAluno/';
+const APIalunoDelete = 'http://localhost:3001/deleteAluno/';
 
 export default class Aluno extends Component {
     constructor(props) {
