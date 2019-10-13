@@ -7,6 +7,7 @@ const APIalunoUpdate = 'http://localhost:3001/editarAluno/';
 const APIalunoDelete = 'http://localhost:3001/deleteAluno/';
 
 export default class Aluno extends Component {
+    _isMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -18,22 +19,24 @@ export default class Aluno extends Component {
     }
 
     async componentDidMount() {
-        const { data: datas } = await axios.get(APIalunoListar);
-        return this.setState({
-            datas: datas
-        });
-    }
-
-    async componentDidUpdate(){
+        this._isMounted = true;
         this.listar();
-
     }
 
-    async listar(){
+    async componentDidUpdate() {
+        this.listar();
+    }
+    async componentWillUnmount() {
+        this._isMounted = false;
+      }
+
+    async listar() {
         const { data: datas } = await axios.get(APIalunoListar);
-        return this.setState({
-            datas: datas
-        });
+        if (this._isMounted) {
+            return this.setState({
+                datas: datas
+            });
+        }
     }
 
     cadastrar = (event) => {
@@ -62,7 +65,7 @@ export default class Aluno extends Component {
         }
     }
 
-     remover =  (event, aluno) => {
+    remover = (event, aluno) => {
         event.preventDefault();
         axios.delete(APIalunoDelete + aluno);
 
@@ -94,7 +97,6 @@ export default class Aluno extends Component {
     dateFormat(date) {
         let format = date.replace(/T/, " ").split(" ");
         let d = format[0].split("-").reverse().join("-");
-        // d += " " + format[1];
         return d;
     }
 
