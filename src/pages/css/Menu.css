@@ -26,7 +26,7 @@ h4 {
     overflow: hidden;
     position: fixed;
     align-items: center;
-    justify-content: center;
+    justify-items: center;
     background-color: rgb(0, 128, 128);
     background: -moz-linear-gradient(135deg, rgb(0, 128, 128) 0%, rgb(124, 252, 0) 100%);
     background: -webkit-linear-gradient(135deg, rgb(0, 128, 128) 0%, rgb(124, 252, 0) 100%);
@@ -41,15 +41,20 @@ h4 {
     font-weight: 50px;
     color: #fff;
     border: 0;
+    margin:15%;
     margin-top: 5%;
     margin-bottom: 5%;
     padding: 1%;
-    width: 100%;
+    width: 70%;
     border-radius: 3px;
     background-color: rgba(0, 128, 128, 0.623);
 }
 
 .button-menu:hover {
+    background-color: rgba(126, 252, 0, 0.11);
+}
+
+.button-menu:focus{
     background-color: rgba(126, 252, 0, 0.11);
 }
 
@@ -62,6 +67,9 @@ h4 {
     background-color: rgba(126, 252, 0, 0.11);
 }
 
+.button-accordion:focus{
+    background-color: rgba(126, 252, 0, 0.11);
+}
 
 #logo1 {
     width: 100%;
