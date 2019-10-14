@@ -169,7 +169,7 @@ export default class Supervisor extends Component {
                                                             <ListGroup.Item className="box-card">
                                                                 <Row>
                                                                     <Col xs={4} className="coluna">
-                                                                        <p className="p-lista">{`CNPJ: ${data.CPF_supervisor}`}</p>
+                                                                        <p className="p-lista">{`CPF: ${data.CPF_supervisor}`}</p>
                                                                     </Col>
 
                                                                     <Col xs={4} className="coluna">
