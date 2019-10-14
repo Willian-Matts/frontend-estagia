@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Button, Jumbotron, Container, Navbar, Col, Form, } from 'react-bootstrap';
 const APIalunoInserir = 'http://localhost:3001/inserirAluno';
 
-export default class Cadastro extends Component {
+export default class CadastroAluno extends Component {
     constructor(props) {
         super(props);
         this.state = {

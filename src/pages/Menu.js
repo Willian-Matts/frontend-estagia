@@ -31,7 +31,6 @@ export default function Menu() {
                                 <Button className="button-menu"><h4>Estágios</h4></Button>
                             </Link>
                         </Container>
-
                     </Accordion.Collapse>
                 </Accordion>
 

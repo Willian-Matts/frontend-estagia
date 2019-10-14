@@ -54,32 +54,31 @@ export default class Aluno extends Component {
             matricula_aluno: this.refs.matricula.value
         };
 
-        if (obj.nome_aluno === "" || obj.CPF_aluno === "" || obj.periodo_aluno === "" || obj.data_nascimento_aluno === "" || obj.endereco_aluno === "" || obj.nome_orientador_aluno === "" || obj.email_aluno === "" || obj.telefone_aluno === "" || obj.matricula_aluno === "") {
+        if (obj.nome_aluno === "" || obj.CPF_aluno === "" || obj.periodo_aluno === "" || obj.data_nascimento_aluno === "" || obj.endereco_aluno === "" ||obj.bairro_aluno === "" || obj.nome_orientador_aluno === "" || obj.email_aluno === "" || obj.telefone_aluno === "" || obj.matricula_aluno === "") {
             alert("Campo(s) não preenchidos!");
         } else {
 
             axios.put(APIalunoUpdate + this.state.index, obj);
-            this.refs.formAluno.reset();
+            this.refs.form.reset();
             this.componentDidUpdate();
         }
     }
 
-    remover = (event, aluno) => {
+    remover = (event, id) => {
         event.preventDefault();
-        axios.delete(APIalunoDelete + aluno);
+        axios.delete(APIalunoDelete + id);
 
-        this.refs.formAluno.reset();
+        this.refs.form.reset();
         this.componentDidUpdate();
     }
 
-    editar = (event, aluno, i) => {
+    editar = (event, id, i) => {
         event.preventDefault();
 
         let data = this.state.datas[i];
         this.refs.nome.value = data.nome_aluno;
         this.refs.CPF.value = data.CPF_aluno;
         this.refs.periodo.value = data.periodo_aluno;
-        this.refs.dataNasc.value = data.data_nascimento_aluno;
         this.refs.endereco.value = data.endereco_aluno;
         this.refs.bairro.value = data.bairro_aluno;
         this.refs.orientador.value = data.nome_orientador_aluno;
@@ -87,8 +86,10 @@ export default class Aluno extends Component {
         this.refs.telefone.value = data.telefone_aluno;
         this.refs.matricula.value = data.matricula_aluno;
 
+        this.refs.nome.focus();
+
         this.setState({
-            index: aluno,
+            index: id,
         });
 
     }
@@ -119,7 +120,7 @@ export default class Aluno extends Component {
 
                         <Accordion.Collapse eventKey="0">
                             <Container>
-                                <Form ref="formAluno">
+                                <Form ref="form">
                                     <Form.Group>
                                         <Form.Label><p className="p-form">Nome</p></Form.Label>
                                         <Form.Control type="text" name="nome" ref="nome" placeholder="Nome do aluno" required="required"></Form.Control>
@@ -155,7 +156,7 @@ export default class Aluno extends Component {
                                         </Col>
                                         <Col>
                                             <Form.Label><p className="p-form">Telefone</p></Form.Label>
-                                            <Form.Control type="text" name="telefone" ref="telefone" placeholder="telefone do aluno" required="required"></Form.Control>
+                                            <Form.Control type="text" name="telefone" ref="telefone" placeholder="Telefone do aluno" required="required"></Form.Control>
                                         </Col>
                                         <Col>
                                             <Form.Label><p className="p-form">Bairro</p></Form.Label>
