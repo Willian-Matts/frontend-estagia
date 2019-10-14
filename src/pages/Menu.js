@@ -13,7 +13,7 @@ export default function Menu() {
 
                 <Accordion defaultActiveKey="1">
                     <Accordion.Toggle className="button-accordion" as={Button} variant="button" eventKey="0">
-                        <h4>LISTAS</h4>
+                        <h3>LISTAS</h3>
                     </Accordion.Toggle>
 
                     <Accordion.Collapse eventKey="0">
@@ -36,7 +36,7 @@ export default function Menu() {
 
                 <Accordion defaultActiveKey="1">
                     <Accordion.Toggle className="button-accordion" as={Button} variant="button" eventKey="0">
-                        <h4>CADASTROS</h4>
+                        <h3>CADASTROS</h3>
                     </Accordion.Toggle>
 
                     <Accordion.Collapse eventKey="0">

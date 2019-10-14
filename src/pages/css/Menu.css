@@ -8,6 +8,13 @@
 h4 {
     font-family: "phenomenaregular";
     color: white;
+    font-size: 100%;
+}
+
+h3 {
+    font-family: "phenomenaregular";
+    color: white;
+    font-size: 150%;
 }
 
 .box-menu {
