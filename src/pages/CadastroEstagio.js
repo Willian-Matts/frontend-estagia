@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import './css/CadastroEstagio.css';
 import axios from 'axios';
 import { Button, Jumbotron, Container, Navbar, Col, Form, } from 'react-bootstrap';
 const APIempresaInserir = 'http://localhost:3001/inserirEmpresa';
 
-export default class CadastroEmpresa extends Component {
+export default class CadastroEstagio extends Component {
     constructor(props) {
         super(props);
         this.state = {

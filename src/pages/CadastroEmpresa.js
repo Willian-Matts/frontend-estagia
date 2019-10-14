@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './css/CadastroEmpresa.css';
 import axios from 'axios';
 import { Button, Jumbotron, Container, Navbar, Col, Form, } from 'react-bootstrap';
 const APIempresaInserir = 'http://localhost:3001/inserirEmpresa';

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import './css/CadastroSupervisor.css';
 import axios from 'axios';
 import { Button, Jumbotron, Container, Navbar, Col, Form, } from 'react-bootstrap';
-const APIempresaInserir = 'http://localhost:3001/inserirEmpresa';
+const APIsupervisorInserir = 'http://localhost:3001/inserirsupervisor';
 
-export default class CadastroEmpresa extends Component {
+export default class Cadastrosupervisor extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -33,7 +32,7 @@ export default class CadastroEmpresa extends Component {
             alert("Campo(s) não preenchidos!");
         } else {
 
-            axios.post(APIempresaInserir, obj);
+            axios.post(APIsupervisorInserir, obj);
 
             this.refs.formAluno.reset();
             this.refs.nome.focus();

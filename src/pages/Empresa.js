@@ -27,7 +27,7 @@ export default class Empresa extends Component {
     }
     async componentWillUnmount() {
         this._isMounted = false;
-      }
+    }
 
     async listar() {
         const { data: datas } = await axios.get(APIempresaListar);
@@ -78,7 +78,7 @@ export default class Empresa extends Component {
         this.refs.bairro.value = data.bairro_empresa;
         this.refs.email.value = data.email_empresa;
         this.refs.telefone.value = data.telefone_empresa;
-        
+
         this.refs.nome.focus();
 
         this.setState({
