@@ -44,13 +44,13 @@ export default function Menu() {
                             <Link to="/main/cadastroAluno">
                                 <Button className="button-menu"><h4>Aluno</h4></Button>
                             </Link>
-                            <Link to="/main/CadastroEmpresas">
+                            <Link to="/main/CadastroEmpresa">
                                 <Button className="button-menu"><h4>Empresas</h4></Button>
                             </Link>
-                            <Link to="/main/CadastroSupervisores">
+                            <Link to="/main/CadastroSupervisor">
                                 <Button className="button-menu"><h4>Supervisores</h4></Button>
                             </Link>
-                            <Link to="/main/CadastroEstagios">
+                            <Link to="/main/CadastroEstagio">
                                 <Button className="button-menu"><h4>Estágios</h4></Button>
                             </Link>
                         </Container>

@@ -45,7 +45,7 @@ export default class CadastroAluno extends Component {
             <Jumbotron className="container-lista">
                 <Container className="box-nav">
                     <Navbar bgh="ligth" expand="lg" className="barra-login shadow">
-                        <h1>Cadastro</h1>
+                        <h1>Cadastro de Aluno</h1>
                     </Navbar>
                 </Container>
                 <Container className="box-lista shadow">
