@@ -17,9 +17,21 @@ export default function Menu() {
                     </Accordion.Toggle>
 
                     <Accordion.Collapse eventKey="0">
-                        <Link to="/main/alunos">
-                            <Button className="button-menu"><h4>Alunos</h4></Button>
-                        </Link>
+                        <Container>
+                            <Link to="/main/alunos">
+                                <Button className="button-menu"><h4>Alunos</h4></Button>
+                            </Link>
+                            <Link to="/main/empresas">
+                                <Button className="button-menu"><h4>Empresas</h4></Button>
+                            </Link>
+                            <Link to="/main/supervisores">
+                                <Button className="button-menu"><h4>Supervisores</h4></Button>
+                            </Link>
+                            <Link to="/main/estagios">
+                                <Button className="button-menu"><h4>Estágios</h4></Button>
+                            </Link>
+                        </Container>
+
                     </Accordion.Collapse>
                 </Accordion>
 
@@ -29,13 +41,22 @@ export default function Menu() {
                     </Accordion.Toggle>
 
                     <Accordion.Collapse eventKey="0">
-
-                        <Link to="/main/cadastro">
-                            <Button className="button-menu"><h4>Cadastro</h4></Button>
-                        </Link>
+                        <Container>
+                            <Link to="/main/cadastroAluno">
+                                <Button className="button-menu"><h4>Aluno</h4></Button>
+                            </Link>
+                            <Link to="/main/CadastroEmpresas">
+                                <Button className="button-menu"><h4>Empresas</h4></Button>
+                            </Link>
+                            <Link to="/main/CadastroSupervisores">
+                                <Button className="button-menu"><h4>Supervisores</h4></Button>
+                            </Link>
+                            <Link to="/main/CadastroEstagios">
+                                <Button className="button-menu"><h4>Estágios</h4></Button>
+                            </Link>
+                        </Container>
                     </Accordion.Collapse>
                 </Accordion>
-
             </Navbar>
         </Container>
     );

@@ -4,7 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import Login from './pages/Login.js';
 import Main from './pages/Main.js';
 import Aluno from './pages/Aluno.js';
-import Cadastro from './pages/Cadastro.js';
+import CadastroAluno from './pages/CadastroAluno.js';
 
 export default function Routes() {
     return (
@@ -12,7 +12,7 @@ export default function Routes() {
             <Route path="/" exact component={Login} />
             <Route path="/main" component={Main} />
             <Route path="/main/alunos" component={Aluno} />
-            <Route path="/main/cadastro" component={Cadastro} />
+            <Route path="/main/cadastroAluno" component={CadastroAluno} />
         </BrowserRouter>
     );
 }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './css/Cadastro.css';
+import './css/CadastroAluno.css';
 import axios from 'axios';
 import { Button, Jumbotron, Container, Navbar, Col, Form, } from 'react-bootstrap';
-const APIalunoInserir = 'http://localhost:3001/inserir';
+const APIalunoInserir = 'http://localhost:3001/inserirAluno';
 
 export default class Cadastro extends Component {
     constructor(props) {
