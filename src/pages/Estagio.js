@@ -5,6 +5,9 @@ import { Row, Button, Jumbotron, Card, Accordion, Container, ListGroup, Navbar, 
 const APIestagioListar = 'http://localhost:3001/estagios';
 const APIestagioUpdate = 'http://localhost:3001/editarEstagio/';
 const APIestagioDelete = 'http://localhost:3001/deleteEstagio/';
+const APIalunoListar = 'http://localhost:3001/alunos';
+// const APIempresaListar = 'http://localhost:3001/empresas';
+// const APIsupervisorListar = 'http://localhost:3001/supervisores';
 
 export default class Estagio extends Component {
     _isMounted = false;
@@ -13,7 +16,10 @@ export default class Estagio extends Component {
         this.state = {
             act: 0,
             index: '',
-            datas: []
+            datas: [],
+            alunos: [],
+            // empresas: [],
+            // supervisores: []
         }
     }
 
@@ -27,13 +33,15 @@ export default class Estagio extends Component {
     }
     async componentWillUnmount() {
         this._isMounted = false;
-      }
+    }
 
     async listar() {
         const { data: datas } = await axios.get(APIestagioListar);
+        const { data: alunos } = await axios.get(APIalunoListar);
         if (this._isMounted) {
             return this.setState({
-                datas: datas
+                datas: datas,
+                alunos: alunos
             });
         }
     }
@@ -101,6 +109,7 @@ export default class Estagio extends Component {
 
     render() {
         let datas = this.state.datas;
+        let alunos = this.state.alunos;
         return (
             <Jumbotron className="container-lista">
                 <Container className="box-nav">
@@ -160,6 +169,16 @@ export default class Estagio extends Component {
                                         <Col>
                                             <Form.Label><p className="p-form">Bairro</p></Form.Label>
                                             <Form.Control type="text" name="bairro" ref="bairro" placeholder="Bairro do aluno" required="required"></Form.Control>
+                                        </Col>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Col>
+                                            <Form.Label>Aluno</Form.Label>
+                                            <Form.Control as="select">
+                                                {alunos.map((aluno, i) =>
+                                                    <option key={i} ref="nome_aluno" value={aluno.idaluno}>{aluno.nome_aluno}</option>
+                                                )}
+                                            </Form.Control>
                                         </Col>
                                     </Form.Row>
                                     <Container className="text-center">
