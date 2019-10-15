@@ -213,11 +213,11 @@ export default class Aluno extends Component {
                                                                     </Col>
 
                                                                     <Col xs={4} className="coluna">
-                                                                        <p className="p-lista">{`Orientador: ${data.nome_orientador_aluno}`}</p>
+                                                                        <p className="p-lista">{`Bairro: ${data.bairro_aluno}`}</p>
                                                                     </Col>
 
                                                                     <Col xs={4} className="coluna">
-                                                                        <p className="p-lista">{`Bairro: ${data.bairro_aluno}`}</p>
+                                                                        <p className="p-lista">{`Telefone: ${data.telefone_aluno}`}</p>
                                                                     </Col>
                                                                 </Row>
                                                             </ListGroup.Item>
@@ -233,9 +233,19 @@ export default class Aluno extends Component {
                                                                     <Col xs={4} className="coluna">
                                                                         <p className="p-lista">{`Matricula: ${data.matricula_aluno}`}</p>
                                                                     </Col>
+                                                                </Row>
+                                                            </ListGroup.Item>
+                                                        </Container>
+
+                                                        <Container>
+                                                            <ListGroup.Item className="box-card">
+                                                                <Row>
+                                                                    <Col xs={4} className="coluna">
+                                                                        <p className="p-lista">{`Cidade: ${data.nome_cidade}`}</p>
+                                                                    </Col>
 
                                                                     <Col xs={4} className="coluna">
-                                                                        <p className="p-lista">{`Telefone: ${data.telefone_aluno}`}</p>
+                                                                        <p className="p-lista">{`Orientador: ${data.nome_orientador_aluno}`}</p>
                                                                     </Col>
                                                                 </Row>
                                                             </ListGroup.Item>

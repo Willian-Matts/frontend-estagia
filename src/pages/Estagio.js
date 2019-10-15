@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import './css/Lista.css';
 import axios from 'axios';
 import { Row, Button, Jumbotron, Card, Accordion, Container, ListGroup, Navbar, Col, Form, } from 'react-bootstrap';
-const APIalunoListar = 'http://localhost:3001/alunos';
-const APIalunoUpdate = 'http://localhost:3001/editarAluno/';
-const APIalunoDelete = 'http://localhost:3001/deleteAluno/';
+const APIestagioListar = 'http://localhost:3001/estagios';
+const APIestagioUpdate = 'http://localhost:3001/editarEstagio/';
+const APIestagioDelete = 'http://localhost:3001/deleteEstagio/';
 
-export default class Aluno extends Component {
+export default class Estagio extends Component {
     _isMounted = false;
     constructor(props) {
         super(props);
@@ -30,7 +30,7 @@ export default class Aluno extends Component {
       }
 
     async listar() {
-        const { data: datas } = await axios.get(APIalunoListar);
+        const { data: datas } = await axios.get(APIestagioListar);
         if (this._isMounted) {
             return this.setState({
                 datas: datas
@@ -58,7 +58,7 @@ export default class Aluno extends Component {
             alert("Campo(s) não preenchidos!");
         } else {
 
-            axios.put(APIalunoUpdate + this.state.index, obj);
+            axios.put(APIestagioUpdate + this.state.index, obj);
             this.refs.formAluno.reset();
             this.componentDidUpdate();
         }
@@ -66,7 +66,7 @@ export default class Aluno extends Component {
 
     remover = (event, aluno) => {
         event.preventDefault();
-        axios.delete(APIalunoDelete + aluno);
+        axios.delete(APIestagioDelete + aluno);
 
         this.refs.formAluno.reset();
         this.componentDidUpdate();
@@ -105,7 +105,7 @@ export default class Aluno extends Component {
             <Jumbotron className="container-lista">
                 <Container className="box-nav">
                     <Navbar bgh="ligth" expand="lg" className="barra-login shadow">
-                        <h1>Lista de Alunos</h1>
+                        <h1>Lista de Estagios</h1>
                     </Navbar>
                 </Container>
                 <Container className="box-lista shadow">
@@ -172,7 +172,7 @@ export default class Aluno extends Component {
                     <Jumbotron className="jumbo">
                         <pre>
                             {datas.map((data, i) =>
-                                <ListGroup key={data.idaluno}>
+                                <ListGroup key={data.idestagio}>
                                     <ListGroup.Item className="card">
                                         <Accordion defaultActiveKey="1">
                                             <Card >
@@ -181,7 +181,7 @@ export default class Aluno extends Component {
                                                     <Accordion.Toggle as={Button} variant="link" eventKey="0">
                                                         <h5 className="h5-form">{data.nome_aluno}</h5>
                                                     </Accordion.Toggle>
-                                                    <h5 className="h5-form">{`Período: ${data.periodo_aluno}º`}</h5>
+                                                    <h5 className="h5-form">{data.nome_empresa}</h5>
                                                 </Card.Header>
 
                                                 <Accordion.Collapse eventKey="0">
@@ -195,10 +195,6 @@ export default class Aluno extends Component {
 
                                                                     <Col xs={4} className="coluna">
                                                                         <p className="p-lista">{`Período: ${data.periodo_aluno}º`}</p>
-                                                                    </Col>
-
-                                                                    <Col xs={4} className="coluna">
-                                                                        <p className="p-lista">{`Data de nascimento: ${this.dateFormat(data.data_nascimento_aluno)}`}</p>
                                                                     </Col>
                                                                 </Row>
                                                             </ListGroup.Item>
