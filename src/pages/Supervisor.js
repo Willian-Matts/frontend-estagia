@@ -5,6 +5,7 @@ import { Row, Button, Jumbotron, Card, Accordion, Container, ListGroup, Navbar, 
 const APISupervisorListar = 'http://localhost:3001/Supervisores';
 const APISupervisorUpdate = 'http://localhost:3001/editarSupervisor/';
 const APISupervisorDelete = 'http://localhost:3001/deleteSupervisor/';
+const APIempresaListar = 'http://localhost:3001/empresas';
 
 export default class Supervisor extends Component {
     _isMounted = false;
@@ -13,7 +14,8 @@ export default class Supervisor extends Component {
         this.state = {
             act: 0,
             index: '',
-            datas: []
+            datas: [],
+            empresas: [],
         }
     }
 
@@ -31,9 +33,11 @@ export default class Supervisor extends Component {
 
     async listar() {
         const { data: datas } = await axios.get(APISupervisorListar);
+        const { data: empresas } = await axios.get(APIempresaListar);
         if (this._isMounted) {
             return this.setState({
-                datas: datas
+                datas: datas,
+                empresas: empresas
             });
         }
     }
@@ -48,9 +52,10 @@ export default class Supervisor extends Component {
             data_nascimento_supervisor: this.refs.dataNasc.value,
             email_supervisor: this.refs.email.value,
             telefone_supervisor: this.refs.telefone.value,
+            empresa_supervisor: this.state.idempresa
         };
 
-        if (obj.nome_supervisor === "" || obj.CPF_supervisor === "" || obj.email_supervisor === "" || obj.telefone_supervisor === "" || obj.formacao_supervisor === "" || obj.data_nascimento_supervisor === "") {
+        if (obj.nome_supervisor === "" || obj.CPF_supervisor === "" || obj.email_supervisor === "" || obj.telefone_supervisor === "" || obj.formacao_supervisor === "" || obj.data_nascimento_supervisor === "" || obj.empresa_supervisor === "") {
             alert("Campo(s) não preenchidos!");
         } else {
 
@@ -95,6 +100,7 @@ export default class Supervisor extends Component {
 
     render() {
         let datas = this.state.datas;
+        let empresas = this.state.empresas;
         return (
             <Jumbotron className="container-lista">
                 <Container className="box-nav">
@@ -140,6 +146,16 @@ export default class Supervisor extends Component {
                                         <Col>
                                             <Form.Label><p className="p-form">Formação</p></Form.Label>
                                             <Form.Control type="text" name="formacao" ref="formacao" placeholder="Formação do supervisor" required="required"></Form.Control>
+                                        </Col>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Col>
+                                            <Form.Label>Empresas</Form.Label>
+                                            <Form.Control as="select" multiple>
+                                                {empresas.map((empresa, i) =>
+                                                    <option key={i} ref="nome_empresa" onClick={(e) => this.setState({ idempresa: empresa.idempresa })}>{empresa.nome_empresa}</option>
+                                                )}
+                                            </Form.Control>
                                         </Col>
                                     </Form.Row>
                                     <Container className="text-center">

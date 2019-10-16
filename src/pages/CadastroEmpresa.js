@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Button, Jumbotron, Container, Navbar, Col, Form, } from 'react-bootstrap';
 const APIempresaInserir = 'http://localhost:3001/inserirEmpresa';
+const APIcidadeListar = 'http://localhost:3001/cidades';
 
 export default class CadastroEmpresa extends Component {
     constructor(props) {
@@ -9,6 +10,28 @@ export default class CadastroEmpresa extends Component {
         this.state = {
             act: 0,
             index: '',
+            cidades: [],
+        }
+    }
+
+    async componentDidMount() {
+        this._isMounted = true;
+        this.listar();
+    }
+
+    async componentDidUpdate() {
+        this.listar();
+    }
+    async componentWillUnmount() {
+        this._isMounted = false;
+    }
+
+    async listar() {
+        const { data: cidades } = await axios.get(APIcidadeListar);
+        if (this._isMounted) {
+            return this.setState({
+                cidades: cidades
+            });
         }
     }
 
@@ -22,9 +45,10 @@ export default class CadastroEmpresa extends Component {
             bairro_empresa: this.refs.bairro.value,
             email_empresa: this.refs.email.value,
             telefone_empresa: this.refs.telefone.value,
+            cidade_empresa: this.state.idcidade
         };
 
-        if (obj.nome_empresa === "" || obj.CNPJ === "" || obj.endereco_empresa === "" || obj.bairro_empresa === "" || obj.email_empresa === "" || obj.telefone_empresa === "") {
+        if (obj.nome_empresa === "" || obj.CNPJ === "" || obj.endereco_empresa === "" || obj.bairro_empresa === "" || obj.email_empresa === "" || obj.telefone_empresa === "" || obj.cidade_empresa === "") {
             alert("Campo(s) não preenchidos!");
         } else {
 
@@ -36,6 +60,7 @@ export default class CadastroEmpresa extends Component {
     }
 
     render() {
+        let cidades = this.state.cidades;
         return (
             <Jumbotron className="container-lista">
                 <Container className="box-nav">
@@ -44,41 +69,51 @@ export default class CadastroEmpresa extends Component {
                     </Navbar>
                 </Container>
                 <Container className="box-lista shadow">
-                <Container>
-                                <Form ref="form">
-                                    <Form.Group>
-                                        <Form.Label><p className="p-form">Nome</p></Form.Label>
-                                        <Form.Control type="text" name="nome" ref="nome" placeholder="Nome da empresa" required="required"></Form.Control>
+                    <Container>
+                        <Form ref="form">
+                            <Form.Group>
+                                <Form.Label><p className="p-form">Nome</p></Form.Label>
+                                <Form.Control type="text" name="nome" ref="nome" placeholder="Nome da empresa" required="required"></Form.Control>
 
-                                        <Form.Label><p className="p-form">E-mail</p></Form.Label>
-                                        <Form.Control type="email" name="email" ref="email" placeholder="exemplo@exemplo.com" required="required"></Form.Control>
-                                    </Form.Group>
+                                <Form.Label><p className="p-form">E-mail</p></Form.Label>
+                                <Form.Control type="email" name="email" ref="email" placeholder="exemplo@exemplo.com" required="required"></Form.Control>
+                            </Form.Group>
 
-                                    <Form.Row>
-                                        <Col>
-                                            <Form.Label><p className="p-form">CNPJ</p></Form.Label>
-                                            <Form.Control type="text" name="CNPJ" ref="CNPJ" placeholder="00.000.000/0000-00" required="required"></Form.Control>
-                                        </Col>
-                                        <Col>
-                                            <Form.Label><p className="p-form">Endereço</p></Form.Label>
-                                            <Form.Control type="text" name="endereco" ref="endereco" placeholder="Endereço da empresa" required="required"></Form.Control>
-                                        </Col>
-                                    </Form.Row>
-                                    <Form.Row>
-                                        <Col>
-                                            <Form.Label><p className="p-form">Telefone</p></Form.Label>
-                                            <Form.Control type="text" name="telefone" ref="telefone" placeholder="Telefone da empresa" required="required"></Form.Control>
-                                        </Col>
-                                        <Col>
-                                            <Form.Label><p className="p-form">Bairro</p></Form.Label>
-                                            <Form.Control type="text" name="bairro" ref="bairro" placeholder="Bairro da empresa" required="required"></Form.Control>
-                                        </Col>
-                                    </Form.Row>
-                                    <Container className="text-center">
-                                        <Button variant="btn btn-estagia" onClick={(e) => this.cadastrar(e)}>Salvar</ Button>
-                                    </Container>
-                                </Form>
+                            <Form.Row>
+                                <Col>
+                                    <Form.Label><p className="p-form">CNPJ</p></Form.Label>
+                                    <Form.Control type="text" name="CNPJ" ref="CNPJ" placeholder="00.000.000/0000-00" required="required"></Form.Control>
+                                </Col>
+                                <Col>
+                                    <Form.Label><p className="p-form">Endereço</p></Form.Label>
+                                    <Form.Control type="text" name="endereco" ref="endereco" placeholder="Endereço da empresa" required="required"></Form.Control>
+                                </Col>
+                            </Form.Row>
+                            <Form.Row>
+                                <Col>
+                                    <Form.Label><p className="p-form">Telefone</p></Form.Label>
+                                    <Form.Control type="text" name="telefone" ref="telefone" placeholder="Telefone da empresa" required="required"></Form.Control>
+                                </Col>
+                                <Col>
+                                    <Form.Label><p className="p-form">Bairro</p></Form.Label>
+                                    <Form.Control type="text" name="bairro" ref="bairro" placeholder="Bairro da empresa" required="required"></Form.Control>
+                                </Col>
+                            </Form.Row>
+                            <Form.Row>
+                                <Col>
+                                    <Form.Label>Cidades</Form.Label>
+                                    <Form.Control as="select" multiple>
+                                        {cidades.map((cidade, i) =>
+                                            <option key={i} ref="nome_cidade" onClick={(e) => this.setState({ idcidade: cidade.idcidade })}>{cidade.nome_cidade}</option>
+                                        )}
+                                    </Form.Control>
+                                </Col>
+                            </Form.Row>
+                            <Container className="text-center">
+                                <Button variant="btn btn-estagia" onClick={(e) => this.cadastrar(e)}>Salvar</ Button>
                             </Container>
+                        </Form>
+                    </Container>
                 </Container>
             </Jumbotron>
         );

@@ -6,8 +6,8 @@ const APIestagioListar = 'http://localhost:3001/estagios';
 const APIestagioUpdate = 'http://localhost:3001/editarEstagio/';
 const APIestagioDelete = 'http://localhost:3001/deleteEstagio/';
 const APIalunoListar = 'http://localhost:3001/alunos';
-// const APIempresaListar = 'http://localhost:3001/empresas';
-// const APIsupervisorListar = 'http://localhost:3001/supervisores';
+const APIempresaListar = 'http://localhost:3001/empresas';
+const APIsupervisorListar = 'http://localhost:3001/supervisores';
 
 export default class Estagio extends Component {
     _isMounted = false;
@@ -18,8 +18,8 @@ export default class Estagio extends Component {
             index: '',
             datas: [],
             alunos: [],
-            // empresas: [],
-            // supervisores: []
+            empresas: [],
+            supervisores: []
         }
     }
 
@@ -38,10 +38,14 @@ export default class Estagio extends Component {
     async listar() {
         const { data: datas } = await axios.get(APIestagioListar);
         const { data: alunos } = await axios.get(APIalunoListar);
+        const { data: empresas } = await axios.get(APIempresaListar);
+        const { data: supervisores } = await axios.get(APIsupervisorListar);
         if (this._isMounted) {
             return this.setState({
                 datas: datas,
-                alunos: alunos
+                alunos: alunos,
+                empresas: empresas,
+                supervisores: supervisores
             });
         }
     }
@@ -50,24 +54,23 @@ export default class Estagio extends Component {
         event.preventDefault();
 
         const obj = {
-            nome_aluno: this.refs.nome.value,
-            CPF_aluno: this.refs.CPF.value,
-            periodo_aluno: this.refs.periodo.value,
-            data_nascimento_aluno: this.refs.dataNasc.value,
-            endereco_aluno: this.refs.endereco.value,
-            bairro_aluno: this.refs.bairro.value,
-            nome_orientador_aluno: this.refs.orientador.value,
-            email_aluno: this.refs.email.value,
-            telefone_aluno: this.refs.telefone.value,
-            matricula_aluno: this.refs.matricula.value
+            setor_estagio: this.refs.setor.value,
+            horas_semanais_estagio: this.refs.semanais.value,
+            horas_totais_estagio: this.refs.totais.value,
+            horas_diarias_estagio: this.refs.diarias.value,
+            data_inicio_estagio: this.refs.data_inicio.value,
+            data_final_estagio: this.refs.data_final.value,
+            aluno_estagio: this.state.idaluno,
+            empresa_estagio: this.state.idempresa,
+            supervisor_estagio: this.state.idsupervisor
         };
 
-        if (obj.nome_aluno === "" || obj.CPF_aluno === "" || obj.periodo_aluno === "" || obj.data_nascimento_aluno === "" || obj.endereco_aluno === "" || obj.nome_orientador_aluno === "" || obj.email_aluno === "" || obj.telefone_aluno === "" || obj.matricula_aluno === "") {
+        if (obj.setor_estagio === "" || obj.horas_semanais_estagio === "" || obj.horas_totais_estagio === "" || obj.horas_diarias_estagio === "" || obj.data_inicio_estagio === "" || obj.data_final_estagio === "" || obj.aluno_estagio === "" || obj.empresa_estagio === "" || obj.supervisor_estagio === "") {
             alert("Campo(s) não preenchidos!");
         } else {
 
             axios.put(APIestagioUpdate + this.state.index, obj);
-            this.refs.formAluno.reset();
+            this.refs.form.reset();
             this.componentDidUpdate();
         }
     }
@@ -76,7 +79,7 @@ export default class Estagio extends Component {
         event.preventDefault();
         axios.delete(APIestagioDelete + aluno);
 
-        this.refs.formAluno.reset();
+        this.refs.form.reset();
         this.componentDidUpdate();
     }
 
@@ -84,17 +87,10 @@ export default class Estagio extends Component {
         event.preventDefault();
 
         let data = this.state.datas[i];
-        this.refs.nome.value = data.nome_aluno;
-        this.refs.CPF.value = data.CPF_aluno;
-        this.refs.periodo.value = data.periodo_aluno;
-        this.refs.dataNasc.value = data.data_nascimento_aluno;
-        this.refs.endereco.value = data.endereco_aluno;
-        this.refs.bairro.value = data.bairro_aluno;
-        this.refs.orientador.value = data.nome_orientador_aluno;
-        this.refs.email.value = data.email_aluno;
-        this.refs.telefone.value = data.telefone_aluno;
-        this.refs.matricula.value = data.matricula_aluno;
-
+        this.refs.setor.value = data.setor_estagio;
+        this.refs.semanais.value = data.horas_semanais_estagio;
+        this.refs.totais.value = data.horas_totais_estagio;
+        this.refs.diarias.value = data.horas_diarias_estagio;
         this.setState({
             index: aluno,
         });
@@ -110,6 +106,8 @@ export default class Estagio extends Component {
     render() {
         let datas = this.state.datas;
         let alunos = this.state.alunos;
+        let empresas = this.state.empresas;
+        let supervisores = this.state.supervisores;
         return (
             <Jumbotron className="container-lista">
                 <Container className="box-nav">
@@ -128,55 +126,61 @@ export default class Estagio extends Component {
 
                         <Accordion.Collapse eventKey="0">
                             <Container>
-                                <Form ref="formAluno">
+                                <Form ref="form">
                                     <Form.Group>
-                                        <Form.Label><p className="p-form">Nome</p></Form.Label>
-                                        <Form.Control type="text" name="nome" ref="nome" placeholder="Nome do aluno" required="required"></Form.Control>
-
-                                        <Form.Label><p className="p-form">E-mail</p></Form.Label>
-                                        <Form.Control type="email" name="email" ref="email" placeholder="exemplo@exemplo.com" required="required"></Form.Control>
-
-                                        <Form.Label><p className="p-form">Orientador</p></Form.Label>
-                                        <Form.Control type="text" name="orientador" ref="orientador" placeholder="Nome do orientador do aluno" required="required"></Form.Control>
-
-                                        <Form.Label><p className="p-form">Matricula</p></Form.Label>
-                                        <Form.Control type="text" name="matricula" ref="matricula" placeholder="Matricula do aluno" required="required"></Form.Control>
+                                        <Form.Label><p className="p-form">Setor de Estágio</p></Form.Label>
+                                        <Form.Control type="text" name="setor" ref="setor" placeholder="Setor de estágio" required="required"></Form.Control>
                                     </Form.Group>
-
                                     <Form.Row>
                                         <Col>
-                                            <Form.Label><p className="p-form">CPF</p></Form.Label>
-                                            <Form.Control type="text" name="CPF" ref="CPF" placeholder="000.000.000-00" required="required"></Form.Control>
+                                            <Form.Label><p className="p-form">Horas diárias </p></Form.Label>
+                                            <Form.Control type="number" name="diarias" ref="diarias" placeholder="Horas feitas diariamente" required="required"></Form.Control>
                                         </Col>
                                         <Col>
-                                            <Form.Label><p className="p-form">Periodo</p></Form.Label>
-                                            <Form.Control type="numeric" name="periodo" ref="periodo" placeholder="Periodo do aluno" required="required"></Form.Control>
+                                            <Form.Label><p className="p-form">Horas semanais </p></Form.Label>
+                                            <Form.Control type="number" name="semanais" ref="semanais" placeholder="Horas feitas semanalmente" required="required"></Form.Control>
                                         </Col>
                                         <Col>
-                                            <Form.Label><p className="p-form">Data de nascimento</p></Form.Label>
-                                            <Form.Control type="Date" name="dataNasc" ref="dataNasc" required="required"></Form.Control>
+                                            <Form.Label><p className="p-form">Horas totais </p></Form.Label>
+                                            <Form.Control type="number" name="totais" ref="totais" placeholder="Horas totais" required="required"></Form.Control>
                                         </Col>
                                     </Form.Row>
                                     <Form.Row>
                                         <Col>
-                                            <Form.Label><p className="p-form">Endereço</p></Form.Label>
-                                            <Form.Control type="text" name="endereco" ref="endereco" placeholder="Endereço do aluno" required="required"></Form.Control>
+                                            <Form.Label><p className="p-form">Data de inicio</p></Form.Label>
+                                            <Form.Control type="Date" name="data_inicio" ref="data_inicio" required="required"></Form.Control>
                                         </Col>
                                         <Col>
-                                            <Form.Label><p className="p-form">Telefone</p></Form.Label>
-                                            <Form.Control type="text" name="telefone" ref="telefone" placeholder="telefone do aluno" required="required"></Form.Control>
-                                        </Col>
-                                        <Col>
-                                            <Form.Label><p className="p-form">Bairro</p></Form.Label>
-                                            <Form.Control type="text" name="bairro" ref="bairro" placeholder="Bairro do aluno" required="required"></Form.Control>
+                                            <Form.Label><p className="p-form">Data de finalização</p></Form.Label>
+                                            <Form.Control type="Date" name="data_final" ref="data_final" required="required"></Form.Control>
                                         </Col>
                                     </Form.Row>
                                     <Form.Row>
                                         <Col>
                                             <Form.Label>Aluno</Form.Label>
-                                            <Form.Control as="select">
+                                            <Form.Control as="select" multiple>
                                                 {alunos.map((aluno, i) =>
-                                                    <option key={i} ref="nome_aluno" value={aluno.idaluno}>{aluno.nome_aluno}</option>
+                                                    <option key={i} ref="nome_aluno" onClick={(e) => this.setState({ idaluno: aluno.idaluno})}>{aluno.nome_aluno}</option>
+                                                )}
+                                            </Form.Control>
+                                        </Col>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Col>
+                                            <Form.Label>Empresas</Form.Label>
+                                            <Form.Control as="select" multiple>
+                                                {empresas.map((empresa, i) =>
+                                                    <option key={i} ref="nome_empresa" onClick={(e) => this.setState({ idempresa: empresa.idempresa})}>{empresa.nome_empresa}</option>
+                                                )}
+                                            </Form.Control>
+                                        </Col>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Col>
+                                            <Form.Label>Supervisores</Form.Label>
+                                            <Form.Control as="select" multiple>
+                                                {supervisores.map((supervisor, i) =>
+                                                    <option key={i} ref="nome_supervisor" onClick={(e) => this.setState({ idsupervisor: supervisor.idsupervisor})}>{supervisor.nome_supervisor}</option>
                                                 )}
                                             </Form.Control>
                                         </Col>
@@ -209,11 +213,7 @@ export default class Estagio extends Component {
                                                             <ListGroup.Item className="box-card">
                                                                 <Row>
                                                                     <Col xs={4} className="coluna">
-                                                                        <p className="p-lista">{`CPF: ${data.CPF_aluno}`}</p>
-                                                                    </Col>
-
-                                                                    <Col xs={4} className="coluna">
-                                                                        <p className="p-lista">{`Período: ${data.periodo_aluno}º`}</p>
+                                                                        <p className="p-lista">{`Setor de estágio: ${data.setor_estagio}`}</p>
                                                                     </Col>
                                                                 </Row>
                                                             </ListGroup.Item>
@@ -223,15 +223,11 @@ export default class Estagio extends Component {
                                                             <ListGroup.Item className="box-card">
                                                                 <Row>
                                                                     <Col xs={4} className="coluna">
-                                                                        <p className="p-lista">{`Endereço: ${data.endereco_aluno}`}</p>
+                                                                        <p className="p-lista">{`Data de inicio: ${this.dateFormat(data.data_inicio_estagio)}`}</p>
                                                                     </Col>
 
                                                                     <Col xs={4} className="coluna">
-                                                                        <p className="p-lista">{`Orientador: ${data.nome_orientador_aluno}`}</p>
-                                                                    </Col>
-
-                                                                    <Col xs={4} className="coluna">
-                                                                        <p className="p-lista">{`Bairro: ${data.bairro_aluno}`}</p>
+                                                                        <p className="p-lista">{`Data de final: ${this.dateFormat(data.data_final_estagio)}`}</p>
                                                                     </Col>
                                                                 </Row>
                                                             </ListGroup.Item>
@@ -241,15 +237,33 @@ export default class Estagio extends Component {
                                                             <ListGroup.Item className="box-card">
                                                                 <Row>
                                                                     <Col xs={4} className="coluna">
-                                                                        <p className="p-lista">{`E-mail: ${data.email_aluno}`}</p>
+                                                                        <p className="p-lista">{`Horas diárias: ${data.horas_diarias_estagio}`}</p>
                                                                     </Col>
 
                                                                     <Col xs={4} className="coluna">
-                                                                        <p className="p-lista">{`Matricula: ${data.matricula_aluno}`}</p>
+                                                                        <p className="p-lista">{`Horas semanais: ${data.horas_semanais_estagio}`}</p>
                                                                     </Col>
 
                                                                     <Col xs={4} className="coluna">
-                                                                        <p className="p-lista">{`Telefone: ${data.telefone_aluno}`}</p>
+                                                                        <p className="p-lista">{`Horas totais: ${data.horas_totais_estagio}`}</p>
+                                                                    </Col>
+                                                                </Row>
+                                                            </ListGroup.Item>
+                                                        </Container>
+
+                                                        <Container>
+                                                            <ListGroup.Item className="box-card">
+                                                                <Row>
+                                                                    <Col xs={4} className="coluna">
+                                                                        <p className="p-lista">{`Aluno: ${data.nome_aluno}`}</p>
+                                                                    </Col>
+
+                                                                    <Col xs={4} className="coluna">
+                                                                        <p className="p-lista">{`Empresa: ${data.nome_empresa}`}</p>
+                                                                    </Col>
+
+                                                                    <Col xs={4} className="coluna">
+                                                                        <p className="p-lista">{`Supervisor: ${data.nome_supervisor}`}</p>
                                                                     </Col>
                                                                 </Row>
                                                             </ListGroup.Item>
@@ -257,8 +271,8 @@ export default class Estagio extends Component {
 
                                                         <Container className="text-center">
                                                             <ListGroup.Item>
-                                                                <Button id="btnRemover" variant="btn btn-danger-list" onClick={(e) => this.remover(e, data.idaluno)}>Remover</ Button>
-                                                                <Button variant="btn btn-list" onClick={(e) => this.editar(e, data.idaluno, i)}>Editar</ Button>
+                                                                <Button id="btnRemover" variant="btn btn-danger-list" onClick={(e) => this.remover(e, data.idestagio)}>Remover</ Button>
+                                                                <Button variant="btn btn-list" onClick={(e) => this.editar(e, data.idestagio, i)}>Editar</ Button>
                                                             </ListGroup.Item>
                                                         </Container>
 

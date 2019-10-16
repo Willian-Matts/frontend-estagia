@@ -71,7 +71,7 @@ export default class CadastroEstagio extends Component {
                                 </Col>
                                 <Col>
                                     <Form.Label><p className="p-form">Periodo</p></Form.Label>
-                                    <Form.Control type="numeric" name="periodo" ref="periodo" placeholder="Periodo do aluno" required="required"></Form.Control>
+                                    <Form.Control type="number" name="periodo" ref="periodo" placeholder="Periodo do aluno" required="required"></Form.Control>
                                 </Col>
                                 <Col>
                                     <Form.Label><p className="p-form">Data de nascimento</p></Form.Label>

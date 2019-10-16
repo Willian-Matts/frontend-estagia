@@ -15,7 +15,7 @@ export default class Aluno extends Component {
             act: 0,
             index: '',
             datas: [],
-            cidades: []
+            cidades: [],
         }
     }
 
@@ -56,7 +56,7 @@ export default class Aluno extends Component {
             email_aluno: this.refs.email.value,
             telefone_aluno: this.refs.telefone.value,
             matricula_aluno: this.refs.matricula.value,
-            cidade_aluno: this.refs.nome_cidade.value
+            cidade_aluno: this.state.idcidade
         };
 
         if (obj.nome_aluno === "" || obj.CPF_aluno === "" || obj.periodo_aluno === "" || obj.data_nascimento_aluno === "" || obj.endereco_aluno === "" || obj.bairro_aluno === "" || obj.nome_orientador_aluno === "" || obj.email_aluno === "" || obj.telefone_aluno === "" || obj.matricula_aluno === "" || obj.cidade_aluno === "") {
@@ -108,7 +108,6 @@ export default class Aluno extends Component {
     render() {
         let datas = this.state.datas;
         let cidades = this.state.cidades;
-        console.log(cidades);
         return (
             <Jumbotron className="container-lista">
                 <Container className="box-nav">
@@ -149,7 +148,7 @@ export default class Aluno extends Component {
                                         </Col>
                                         <Col>
                                             <Form.Label><p className="p-form">Periodo</p></Form.Label>
-                                            <Form.Control type="numeric" name="periodo" ref="periodo" placeholder="Periodo do aluno" required="required"></Form.Control>
+                                            <Form.Control type="number" name="periodo" ref="periodo" placeholder="Periodo do aluno" required="required"></Form.Control>
                                         </Col>
                                         <Col>
                                             <Form.Label><p className="p-form">Data de nascimento</p></Form.Label>
@@ -176,9 +175,9 @@ export default class Aluno extends Component {
                                     <Form.Row>
                                         <Col>
                                             <Form.Label>Cidades</Form.Label>
-                                            <Form.Control as="select">
+                                            <Form.Control as="select" multiple>
                                                 {cidades.map((cidade, i) =>
-                                                    <option key={cidade.idcidade} ref="nome_cidade">{cidade.nome_cidade}</option>
+                                                    <option key={i} ref="nome_cidade" onClick={(e) => this.setState({idcidade: cidade.idcidade})}>{cidade.nome_cidade}</option>
                                                 )}
                                             </Form.Control>
                                         </Col>

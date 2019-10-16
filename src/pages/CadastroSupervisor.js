@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Button, Jumbotron, Container, Navbar, Col, Form, } from 'react-bootstrap';
 const APIsupervisorInserir = 'http://localhost:3001/inserirsupervisor';
+const APIempresaListar = 'http://localhost:3001/empresas';
 
 export default class Cadastrosupervisor extends Component {
     constructor(props) {
@@ -9,6 +10,28 @@ export default class Cadastrosupervisor extends Component {
         this.state = {
             act: 0,
             index: '',
+            empresas: [],
+        }
+    }
+
+    async componentDidMount() {
+        this._isMounted = true;
+        this.listar();
+    }
+
+    async componentDidUpdate() {
+        this.listar();
+    }
+    async componentWillUnmount() {
+        this._isMounted = false;
+    }
+
+    async listar() {
+        const { data: empresas } = await axios.get(APIempresaListar);
+        if (this._isMounted) {
+            return this.setState({
+                empresas: empresas
+            });
         }
     }
 
@@ -22,9 +45,10 @@ export default class Cadastrosupervisor extends Component {
             data_nascimento_supervisor: this.refs.dataNasc.value,
             email_supervisor: this.refs.email.value,
             telefone_supervisor: this.refs.telefone.value,
+            empresa_supervisor: this.state.idempresa
         };
 
-        if (obj.nome_supervisor === "" || obj.CPF_supervisor === "" || obj.email_supervisor === "" || obj.telefone_supervisor === "" || obj.formacao_supervisor === "" || obj.data_nascimento_supervisor === "") {
+        if (obj.nome_supervisor === "" || obj.CPF_supervisor === "" || obj.email_supervisor === "" || obj.telefone_supervisor === "" || obj.formacao_supervisor === "" || obj.data_nascimento_supervisor === "" || obj.empresa_supervisor === "") {
             alert("Campo(s) não preenchidos!");
         } else {
 
@@ -36,6 +60,7 @@ export default class Cadastrosupervisor extends Component {
     }
 
     render() {
+        let empresas = this.state.empresas;
         return (
             <Jumbotron className="container-lista">
                 <Container className="box-nav">
@@ -44,41 +69,51 @@ export default class Cadastrosupervisor extends Component {
                     </Navbar>
                 </Container>
                 <Container className="box-lista shadow">
-                <Container>
-                                <Form ref="form">
-                                    <Form.Group>
-                                        <Form.Label><p className="p-form">Nome</p></Form.Label>
-                                        <Form.Control type="text" name="nome" ref="nome" placeholder="Nome do supervisor" required="required"></Form.Control>
+                    <Container>
+                        <Form ref="form">
+                            <Form.Group>
+                                <Form.Label><p className="p-form">Nome</p></Form.Label>
+                                <Form.Control type="text" name="nome" ref="nome" placeholder="Nome do supervisor" required="required"></Form.Control>
 
-                                        <Form.Label><p className="p-form">E-mail</p></Form.Label>
-                                        <Form.Control type="email" name="email" ref="email" placeholder="exemplo@exemplo.com" required="required"></Form.Control>
-                                    </Form.Group>
+                                <Form.Label><p className="p-form">E-mail</p></Form.Label>
+                                <Form.Control type="email" name="email" ref="email" placeholder="exemplo@exemplo.com" required="required"></Form.Control>
+                            </Form.Group>
 
-                                    <Form.Row>
-                                        <Col>
-                                            <Form.Label><p className="p-form">CPF</p></Form.Label>
-                                            <Form.Control type="text" name="CPF" ref="CPF" placeholder="000.000.000-00" required="required"></Form.Control>
-                                        </Col>
-                                        <Col>
-                                            <Form.Label><p className="p-form">Data de nascimento</p></Form.Label>
-                                            <Form.Control type="Date" name="dataNasc" ref="dataNasc" required="required"></Form.Control>
-                                        </Col>
-                                    </Form.Row>
-                                    <Form.Row>
-                                        <Col>
-                                            <Form.Label><p className="p-form">Telefone</p></Form.Label>
-                                            <Form.Control type="text" name="telefone" ref="telefone" placeholder="Telefone do supervisor" required="required"></Form.Control>
-                                        </Col>
-                                        <Col>
-                                            <Form.Label><p className="p-form">Formação</p></Form.Label>
-                                            <Form.Control type="text" name="formacao" ref="formacao" placeholder="Formação do supervisor" required="required"></Form.Control>
-                                        </Col>
-                                    </Form.Row>
-                                    <Container className="text-center">
-                                        <Button variant="btn btn-estagia" onClick={(e) => this.cadastrar(e)}>Salvar</ Button>
-                                    </Container>
-                                </Form>
+                            <Form.Row>
+                                <Col>
+                                    <Form.Label><p className="p-form">CPF</p></Form.Label>
+                                    <Form.Control type="text" name="CPF" ref="CPF" placeholder="000.000.000-00" required="required"></Form.Control>
+                                </Col>
+                                <Col>
+                                    <Form.Label><p className="p-form">Data de nascimento</p></Form.Label>
+                                    <Form.Control type="Date" name="dataNasc" ref="dataNasc" required="required"></Form.Control>
+                                </Col>
+                            </Form.Row>
+                            <Form.Row>
+                                <Col>
+                                    <Form.Label><p className="p-form">Telefone</p></Form.Label>
+                                    <Form.Control type="text" name="telefone" ref="telefone" placeholder="Telefone do supervisor" required="required"></Form.Control>
+                                </Col>
+                                <Col>
+                                    <Form.Label><p className="p-form">Formação</p></Form.Label>
+                                    <Form.Control type="text" name="formacao" ref="formacao" placeholder="Formação do supervisor" required="required"></Form.Control>
+                                </Col>
+                            </Form.Row>
+                            <Form.Row>
+                                <Col>
+                                    <Form.Label>Empresas</Form.Label>
+                                    <Form.Control as="select" multiple>
+                                        {empresas.map((empresa, i) =>
+                                            <option key={i} ref="nome_empresa" onClick={(e) => this.setState({ idempresa: empresa.idempresa })}>{empresa.nome_empresa}</option>
+                                        )}
+                                    </Form.Control>
+                                </Col>
+                            </Form.Row>
+                            <Container className="text-center">
+                                <Button variant="btn btn-estagia" onClick={(e) => this.cadastrar(e)}>Salvar</ Button>
                             </Container>
+                        </Form>
+                    </Container>
                 </Container>
             </Jumbotron>
         );

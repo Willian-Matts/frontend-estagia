@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Button, Jumbotron, Container, Navbar, Col, Form, } from 'react-bootstrap';
 const APIalunoInserir = 'http://localhost:3001/inserirAluno';
+const APIcidadeListar = 'http://localhost:3001/cidades';
 
 export default class CadastroAluno extends Component {
     constructor(props) {
@@ -9,6 +10,28 @@ export default class CadastroAluno extends Component {
         this.state = {
             act: 0,
             index: '',
+            cidades: [],
+        }
+    }
+
+    async componentDidMount() {
+        this._isMounted = true;
+        this.listar();
+    }
+
+    async componentDidUpdate() {
+        this.listar();
+    }
+    async componentWillUnmount() {
+        this._isMounted = false;
+    }
+
+    async listar() {
+        const { data: cidades } = await axios.get(APIcidadeListar);
+        if (this._isMounted) {
+            return this.setState({
+                cidades: cidades
+            });
         }
     }
 
@@ -25,21 +48,23 @@ export default class CadastroAluno extends Component {
             nome_orientador_aluno: this.refs.orientador.value,
             email_aluno: this.refs.email.value,
             telefone_aluno: this.refs.telefone.value,
-            matricula_aluno: this.refs.matricula.value
+            matricula_aluno: this.refs.matricula.value,
+            cidade_aluno: this.state.idcidade
         };
 
-        if (obj.nome_aluno === "" || obj.CPF_aluno === "" || obj.periodo_aluno === "" || obj.data_nascimento_aluno === "" || obj.endereco_aluno === "" || obj.nome_orientador_aluno === "" || obj.email_aluno === "" || obj.telefone_aluno === "" || obj.matricula_aluno === "") {
+        if (obj.nome_aluno === "" || obj.CPF_aluno === "" || obj.periodo_aluno === "" || obj.data_nascimento_aluno === "" || obj.endereco_aluno === "" || obj.nome_orientador_aluno === "" || obj.email_aluno === "" || obj.telefone_aluno === "" || obj.matricula_aluno === "" || obj.cidade_aluno === "") {
             alert("Campo(s) não preenchidos!");
         } else {
 
             axios.post(APIalunoInserir, obj);
 
-            this.refs.formAluno.reset();
+            this.refs.form.reset();
             this.refs.nome.focus();
         }
     }
 
     render() {
+        let cidades = this.state.cidades;
         return (
             <Jumbotron className="container-lista">
                 <Container className="box-nav">
@@ -49,7 +74,7 @@ export default class CadastroAluno extends Component {
                 </Container>
                 <Container className="box-lista shadow">
                     <Container>
-                        <Form ref="formAluno">
+                        <Form ref="form">
                             <Form.Group>
                                 <Form.Label><p className="p-form">Nome</p></Form.Label>
                                 <Form.Control type="text" name="nome" ref="nome" placeholder="Nome do aluno" required="required"></Form.Control>
@@ -71,7 +96,7 @@ export default class CadastroAluno extends Component {
                                 </Col>
                                 <Col>
                                     <Form.Label><p className="p-form">Periodo</p></Form.Label>
-                                    <Form.Control type="numeric" name="periodo" ref="periodo" placeholder="Periodo do aluno" required="required"></Form.Control>
+                                    <Form.Control type="number" name="periodo" ref="periodo" placeholder="Periodo do aluno" required="required"></Form.Control>
                                 </Col>
                                 <Col>
                                     <Form.Label><p className="p-form">Data de nascimento</p></Form.Label>
@@ -90,6 +115,16 @@ export default class CadastroAluno extends Component {
                                 <Col>
                                     <Form.Label><p className="p-form">Bairro</p></Form.Label>
                                     <Form.Control type="text" name="bairro" ref="bairro" placeholder="Bairro do aluno" required="required"></Form.Control>
+                                </Col>
+                            </Form.Row>
+                            <Form.Row>
+                                <Col>
+                                    <Form.Label>Cidades</Form.Label>
+                                    <Form.Control as="select" multiple>
+                                        {cidades.map((cidade, i) =>
+                                            <option key={i} ref="nome_cidade" onClick={(e) => this.setState({ idcidade: cidade.idcidade })}>{cidade.nome_cidade}</option>
+                                        )}
+                                    </Form.Control>
                                 </Col>
                             </Form.Row>
                             <Container className="text-center">

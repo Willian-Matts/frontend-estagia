@@ -5,6 +5,7 @@ import { Row, Button, Jumbotron, Card, Accordion, Container, ListGroup, Navbar, 
 const APIempresaListar = 'http://localhost:3001/empresas';
 const APIempresaUpdate = 'http://localhost:3001/editarEmpresa/';
 const APIempresaDelete = 'http://localhost:3001/deleteEmpresa/';
+const APIcidadeListar = 'http://localhost:3001/cidades';
 
 export default class Empresa extends Component {
     _isMounted = false;
@@ -13,7 +14,8 @@ export default class Empresa extends Component {
         this.state = {
             act: 0,
             index: '',
-            datas: []
+            datas: [],
+            cidades: [],
         }
     }
 
@@ -31,9 +33,11 @@ export default class Empresa extends Component {
 
     async listar() {
         const { data: datas } = await axios.get(APIempresaListar);
+        const { data: cidades } = await axios.get(APIcidadeListar);
         if (this._isMounted) {
             return this.setState({
-                datas: datas
+                datas: datas,
+                cidades: cidades
             });
         }
     }
@@ -48,9 +52,10 @@ export default class Empresa extends Component {
             bairro_empresa: this.refs.bairro.value,
             email_empresa: this.refs.email.value,
             telefone_empresa: this.refs.telefone.value,
+            cidade_empresa: this.state.idcidade
         };
 
-        if (obj.nome_empresa === "" || obj.CNPJ === "" || obj.endereco_empresa === "" || obj.bairro_empresa === "" || obj.email_empresa === "" || obj.telefone_empresa === "") {
+        if (obj.nome_empresa === "" || obj.CNPJ === "" || obj.endereco_empresa === "" || obj.bairro_empresa === "" || obj.email_empresa === "" || obj.telefone_empresa === "" || obj.cidade_empresa === "") {
             alert("Campo(s) não preenchidos!");
         } else {
 
@@ -89,6 +94,7 @@ export default class Empresa extends Component {
 
     render() {
         let datas = this.state.datas;
+        let cidades = this.state.cidades;
         return (
             <Jumbotron className="container-lista">
                 <Container className="box-nav">
@@ -134,6 +140,16 @@ export default class Empresa extends Component {
                                         <Col>
                                             <Form.Label><p className="p-form">Bairro</p></Form.Label>
                                             <Form.Control type="text" name="bairro" ref="bairro" placeholder="Bairro da empresa" required="required"></Form.Control>
+                                        </Col>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Col>
+                                            <Form.Label>Cidades</Form.Label>
+                                            <Form.Control as="select" multiple>
+                                                {cidades.map((cidade, i) =>
+                                                    <option key={i} ref="nome_cidade" onClick={(e) => this.setState({ idcidade: cidade.idcidade })}>{cidade.nome_cidade}</option>
+                                                )}
+                                            </Form.Control>
                                         </Col>
                                     </Form.Row>
                                     <Container className="text-center">
