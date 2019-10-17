@@ -91,6 +91,9 @@ export default class Estagio extends Component {
         this.refs.semanais.value = data.horas_semanais_estagio;
         this.refs.totais.value = data.horas_totais_estagio;
         this.refs.diarias.value = data.horas_diarias_estagio;
+        
+        this.refs.setor.focus();
+
         this.setState({
             index: aluno,
         });
