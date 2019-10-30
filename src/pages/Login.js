@@ -1,18 +1,37 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './css/Login.css';
 import logoNome from '../imagens/logoNomeB.png';
 import { Button, Jumbotron, Container, Form, Navbar } from 'react-bootstrap';
+const APIfuncionarioLogin = 'http://localhost:3001/funcionario';
 
 export default function Login({ history }) {
     const [userEmail, setUserEmail] = useState('');
     const [userSenha, setUserSenha] = useState('');
 
-    function hadleSubmit(e) {
+
+    async function hadleSubmit(e) {
         e.preventDefault();
 
-        console.log(userEmail, "", userSenha);
+        const obj = {
+            login: userEmail,
+            senha: userSenha,
+        };
 
-        history.push('/main/alunos');
+        if (obj.login === "" || obj.senha === "") {
+            alert("Campo(s) não preenchidos!");
+        } else {
+            const { data: datas } = await axios.post(APIfuncionarioLogin, obj);
+            if (datas[0] === undefined) {
+                alert("Senha ou login incorretos!");
+            } else {
+                if (obj.login === datas[0].email_funcionario) {
+                    if (obj.senha === datas[0].senha_funcionario) {
+                        history.push('/main/alunos');
+                    }
+                }
+            }
+        }
     }
 
     return (
@@ -28,7 +47,7 @@ export default function Login({ history }) {
                     </Form.Group>
                     <Form.Group controlId="formSenha">
                         <Form.Label className="label-login">Senha</Form.Label>
-                        <Form.Control type="password" placeholder="Insira sua senha" value={userSenha} onChange={e => setUserSenha(e.target.value)} required/>
+                        <Form.Control type="password" placeholder="Insira sua senha" value={userSenha} onChange={e => setUserSenha(e.target.value)} required />
                         <Button type="submit" variant="btn btn-estagia">Login</ Button>
                     </Form.Group>
                 </Form>
