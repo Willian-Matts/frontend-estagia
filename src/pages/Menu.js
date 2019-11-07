@@ -56,6 +56,10 @@ export default function Menu() {
                         </Container>
                     </Accordion.Collapse>
                 </Accordion>
+                <Link to="/">
+                    <Button className="button-menu"><h4>Sair</h4></Button>
+                </Link>
+
             </Navbar>
         </Container>
     );

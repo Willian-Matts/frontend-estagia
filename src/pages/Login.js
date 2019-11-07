@@ -43,11 +43,11 @@ export default function Login({ history }) {
                 <Form onSubmit={hadleSubmit}>
                     <Form.Group controlId="formEmail">
                         <Form.Label className="label-login">E-mail</Form.Label>
-                        <Form.Control type="email" placeholder="Insira seu e-mail" value={userEmail} onChange={e => setUserEmail(e.target.value)} required />
+                        <Form.Control type="email" placeholder="Insira seu e-mail" value={userEmail} onChange={e => setUserEmail(e.target.value)} required maxLength="100"/>
                     </Form.Group>
                     <Form.Group controlId="formSenha">
                         <Form.Label className="label-login">Senha</Form.Label>
-                        <Form.Control type="password" placeholder="Insira sua senha" value={userSenha} onChange={e => setUserSenha(e.target.value)} required />
+                        <Form.Control type="password" placeholder="Insira sua senha" value={userSenha} onChange={e => setUserSenha(e.target.value)} required maxLength="50"/>
                         <Button type="submit" variant="btn btn-estagia">Login</ Button>
                     </Form.Group>
                 </Form>
