@@ -14,3 +14,8 @@ export const telefone = value => {
         .replace(/(\d)(\d{4})$/,"$1-$2");  
 }
 
+export const cnpj = value => {
+    return value
+        .replace(/\D/g, '') // substitui qualquer caracter que nao seja numero por nada
+        .replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g,"\$1.\$2.\$3\/\$4\-\$5") //Mascara para o CNPJ
+}

@@ -162,7 +162,7 @@ export default class Aluno extends Component {
                                     <Form.Row>
                                         <Col>
                                             <Form.Label><p className="p-form">CPF</p></Form.Label>
-                                            <Form.Control  type="text" name="CPF" ref="CPF" onChange={this.changeCpf} maxLength='14' placeholder="000.000.000-00" required="required"></Form.Control>
+                                            <Form.Control type="text" name="CPF" ref="CPF" onChange={this.changeCpf} maxLength='14' placeholder="000.000.000-00" required="required"></Form.Control>
                                         </Col>
                                         <Col>
                                             <Form.Label><p className="p-form">Periodo</p></Form.Label>
@@ -187,7 +187,7 @@ export default class Aluno extends Component {
 
                                         <Col>
                                             <Form.Label><p className="p-form">Telefone</p></Form.Label>
-                                            <Form.Control type="text" name="telefone" ref="telefone"  onChange={this.changeTelefone} maxLength="15" placeholder="Telefone do aluno" required="required"></Form.Control>
+                                            <Form.Control type="text" name="telefone" ref="telefone" onChange={this.changeTelefone} maxLength="15" placeholder="Telefone do aluno" required="required"></Form.Control>
                                         </Col>
                                     </Form.Row>
                                     <Form.Row>

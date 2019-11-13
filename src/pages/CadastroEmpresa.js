@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { cnpj, telefone } from './mask';
 import { Button, Jumbotron, Container, Navbar, Col, Form, } from 'react-bootstrap';
 const APIempresaInserir = 'http://localhost:3001/inserirEmpresa';
 const APIcidadeListar = 'http://localhost:3001/cidades';
@@ -11,7 +12,23 @@ export default class CadastroEmpresa extends Component {
             act: 0,
             index: '',
             cidades: [],
+            maskcnpj: "",
+            masktelefone: ''
         }
+
+        this.changeCnpj = this.changeCnpj.bind(this);
+        this.changeTelefone = this.changeTelefone.bind(this);
+    }
+
+    async changeCnpj(e) {
+        await this.setState({ maskcnpj: cnpj(e.target.value) })
+        this.refs.CNPJ.value = this.state.maskcnpj;
+    }
+
+    async changeTelefone(e) {
+        await this.setState({ masktelefone: telefone(e.target.value) })
+        this.refs.telefone.value = this.state.masktelefone;
+
     }
 
     async componentDidMount() {
@@ -82,7 +99,7 @@ export default class CadastroEmpresa extends Component {
                             <Form.Row>
                                 <Col>
                                     <Form.Label><p className="p-form">CNPJ</p></Form.Label>
-                                    <Form.Control type="text" name="CNPJ" ref="CNPJ" placeholder="00.000.000/0000-00" required="required"></Form.Control>
+                                    <Form.Control type="text" name="CNPJ" ref="CNPJ" onChange={this.changeCnpj} maxLength="18" placeholder="00.000.000/0000-00" required="required"></Form.Control>
                                 </Col>
                                 <Col>
                                     <Form.Label><p className="p-form">Endereço</p></Form.Label>
@@ -92,7 +109,7 @@ export default class CadastroEmpresa extends Component {
                             <Form.Row>
                                 <Col>
                                     <Form.Label><p className="p-form">Telefone</p></Form.Label>
-                                    <Form.Control type="text" name="telefone" ref="telefone" placeholder="Telefone da empresa" required="required"></Form.Control>
+                                    <Form.Control type="text" name="telefone" ref="telefone" onChange={this.changeTelefone} maxLength="15" placeholder="Telefone da empresa" required="required"></Form.Control>
                                 </Col>
                                 <Col>
                                     <Form.Label><p className="p-form">Bairro</p></Form.Label>
