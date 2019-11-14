@@ -4,6 +4,7 @@ import './css/Login.css';
 import logoNome from '../imagens/logoNomeB.png';
 import { Button, Jumbotron, Container, Form, Navbar } from 'react-bootstrap';
 const APIfuncionarioLogin = 'http://localhost:3001/funcionario';
+const APIlogin = 'http://localhost:3001/login';
 
 export default function Login({ history }) {
     const [userEmail, setUserEmail] = useState('');
@@ -22,15 +23,15 @@ export default function Login({ history }) {
             alert("Campo(s) não preenchidos!");
         } else {
             const { data: datas } = await axios.post(APIfuncionarioLogin, obj);
-            console.log(datas);
-            console.log(datas[0].email_funcionario);
-            console.log(datas[0].senha_funcionario);
             if (datas[0] === undefined) {
                 alert("Senha ou login incorretos!");
             } else {
                 if (obj.login === datas[0].email_funcionario) {
                     if (obj.senha === datas[0].senha_funcionario) {
-                        history.push('/main/alunos');
+                        const valido = await axios.post(APIlogin, obj);
+                        if(valido.data === 'done'){
+                            history.push('/main/alunos');
+                        }
                     }
                 }
             }

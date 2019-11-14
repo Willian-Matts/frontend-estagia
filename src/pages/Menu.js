@@ -3,8 +3,16 @@ import './css/Menu.css';
 import logoBranca from '../imagens/logoNomeB.png';
 import { Accordion, Button, Container, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+const APIlogout = 'http://localhost:3001/logout';
 
 export default function Menu() {
+
+    async function logout(e) {
+        e.preventDefault();
+        axios.get(APIlogout);
+        window.location.href="/";
+    }
 
     return (
         <Container className="box-menu">
@@ -56,9 +64,8 @@ export default function Menu() {
                         </Container>
                     </Accordion.Collapse>
                 </Accordion>
-                <Link to="/">
-                    <Button className="button-menu"><h4>Sair</h4></Button>
-                </Link>
+
+                <Button className="button-menu" onClick={logout}><h4>Sair</h4></Button>
 
             </Navbar>
         </Container>
