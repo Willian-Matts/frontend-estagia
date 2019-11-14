@@ -92,16 +92,16 @@ export default class Cadastrosupervisor extends Component {
                         <Form ref="form">
                             <Form.Group>
                                 <Form.Label><p className="p-form">Nome</p></Form.Label>
-                                <Form.Control type="text" name="nome" ref="nome" placeholder="Nome do supervisor" required="required"></Form.Control>
+                                <Form.Control type="text" name="nome" ref="nome" placeholder="Nome do supervisor" required="required" maxLength="200"></Form.Control>
 
                                 <Form.Label><p className="p-form">E-mail</p></Form.Label>
-                                <Form.Control type="email" name="email" ref="email" placeholder="exemplo@exemplo.com" required="required"></Form.Control>
+                                <Form.Control type="email" name="email" ref="email" placeholder="exemplo@exemplo.com" required="required" maxLength="200"></Form.Control>
                             </Form.Group>
 
                             <Form.Row>
                                 <Col>
                                     <Form.Label><p className="p-form">CPF</p></Form.Label>
-                                    <Form.Control type="text" name="CPF" ref="CPF" onChange={this.changeCpf} maxLength='14' placeholder="000.000.000-00" required="required"></Form.Control>
+                                    <Form.Control type="text" name="CPF" ref="CPF" onChange={this.changeCpf} placeholder="000.000.000-00" required="required"  maxLength='14'></Form.Control>
                                 </Col>
                                 <Col>
                                     <Form.Label><p className="p-form">Data de nascimento</p></Form.Label>
@@ -111,11 +111,11 @@ export default class Cadastrosupervisor extends Component {
                             <Form.Row>
                                 <Col>
                                     <Form.Label><p className="p-form">Telefone</p></Form.Label>
-                                    <Form.Control type="text" name="telefone" ref="telefone" onChange={this.changeTelefone} maxLength="15" placeholder="Telefone do supervisor" required="required"></Form.Control>
+                                    <Form.Control type="text" name="telefone" ref="telefone" onChange={this.changeTelefone} placeholder="Telefone do supervisor" required="required" maxLength="15"></Form.Control>
                                 </Col>
                                 <Col>
                                     <Form.Label><p className="p-form">Formação</p></Form.Label>
-                                    <Form.Control type="text" name="formacao" ref="formacao" placeholder="Formação do supervisor" required="required"></Form.Control>
+                                    <Form.Control type="text" name="formacao" ref="formacao" placeholder="Formação do supervisor" required="required" maxLength="100"></Form.Control>
                                 </Col>
                             </Form.Row>
                             <Form.Row>

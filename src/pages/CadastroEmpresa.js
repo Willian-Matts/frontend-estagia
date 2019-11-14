@@ -90,30 +90,30 @@ export default class CadastroEmpresa extends Component {
                         <Form ref="form">
                             <Form.Group>
                                 <Form.Label><p className="p-form">Nome</p></Form.Label>
-                                <Form.Control type="text" name="nome" ref="nome" placeholder="Nome da empresa" required="required"></Form.Control>
+                                <Form.Control type="text" name="nome" ref="nome" placeholder="Nome da empresa" required="required" maxLength="200"></Form.Control>
 
                                 <Form.Label><p className="p-form">E-mail</p></Form.Label>
-                                <Form.Control type="email" name="email" ref="email" placeholder="exemplo@exemplo.com" required="required"></Form.Control>
+                                <Form.Control type="email" name="email" ref="email" placeholder="exemplo@exemplo.com" required="required" maxLength="100"></Form.Control>
                             </Form.Group>
 
                             <Form.Row>
                                 <Col>
                                     <Form.Label><p className="p-form">CNPJ</p></Form.Label>
-                                    <Form.Control type="text" name="CNPJ" ref="CNPJ" onChange={this.changeCnpj} maxLength="18" placeholder="00.000.000/0000-00" required="required"></Form.Control>
+                                    <Form.Control type="text" name="CNPJ" ref="CNPJ" onChange={this.changeCnpj} placeholder="00.000.000/0000-00" required="required" maxLength="18"></Form.Control>
                                 </Col>
                                 <Col>
                                     <Form.Label><p className="p-form">Endereço</p></Form.Label>
-                                    <Form.Control type="text" name="endereco" ref="endereco" placeholder="Endereço da empresa" required="required"></Form.Control>
+                                    <Form.Control type="text" name="endereco" ref="endereco" placeholder="Endereço da empresa" required="required" maxLength="200"></Form.Control>
                                 </Col>
                             </Form.Row>
                             <Form.Row>
                                 <Col>
                                     <Form.Label><p className="p-form">Telefone</p></Form.Label>
-                                    <Form.Control type="text" name="telefone" ref="telefone" onChange={this.changeTelefone} maxLength="15" placeholder="Telefone da empresa" required="required"></Form.Control>
+                                    <Form.Control type="text" name="telefone" ref="telefone" onChange={this.changeTelefone} placeholder="Telefone da empresa" required="required" maxLength="15" ></Form.Control>
                                 </Col>
                                 <Col>
                                     <Form.Label><p className="p-form">Bairro</p></Form.Label>
-                                    <Form.Control type="text" name="bairro" ref="bairro" placeholder="Bairro da empresa" required="required"></Form.Control>
+                                    <Form.Control type="text" name="bairro" ref="bairro" placeholder="Bairro da empresa" required="required" maxLength="50"></Form.Control>
                                 </Col>
                             </Form.Row>
                             <Form.Row>

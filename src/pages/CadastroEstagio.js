@@ -85,7 +85,7 @@ export default class CadastroEstagio extends Component {
                     <Form ref="form">
                                     <Form.Group>
                                         <Form.Label><p className="p-form">Setor de Estágio</p></Form.Label>
-                                        <Form.Control type="text" name="setor" ref="setor" placeholder="Setor de estágio" required="required"></Form.Control>
+                                        <Form.Control type="text" name="setor" ref="setor" placeholder="Setor de estágio" required="required" maxLength="100"></Form.Control>
                                     </Form.Group>
                                     <Form.Row>
                                         <Col>

@@ -22,6 +22,9 @@ export default function Login({ history }) {
             alert("Campo(s) não preenchidos!");
         } else {
             const { data: datas } = await axios.post(APIfuncionarioLogin, obj);
+            console.log(datas);
+            console.log(datas[0].email_funcionario);
+            console.log(datas[0].senha_funcionario);
             if (datas[0] === undefined) {
                 alert("Senha ou login incorretos!");
             } else {
@@ -43,11 +46,11 @@ export default function Login({ history }) {
                 <Form onSubmit={hadleSubmit}>
                     <Form.Group controlId="formEmail">
                         <Form.Label className="label-login">E-mail</Form.Label>
-                        <Form.Control type="email" placeholder="Insira seu e-mail" value={userEmail} onChange={e => setUserEmail(e.target.value)} required maxLength="100"/>
+                        <Form.Control type="email" placeholder="Insira seu e-mail" value={userEmail} onChange={e => setUserEmail(e.target.value)} required maxLength="100" />
                     </Form.Group>
                     <Form.Group controlId="formSenha">
                         <Form.Label className="label-login">Senha</Form.Label>
-                        <Form.Control type="password" placeholder="Insira sua senha" value={userSenha} onChange={e => setUserSenha(e.target.value)} required maxLength="50"/>
+                        <Form.Control type="password" placeholder="Insira sua senha" value={userSenha} onChange={e => setUserSenha(e.target.value)} required maxLength="100" />
                         <Button type="submit" variant="btn btn-estagia">Login</ Button>
                     </Form.Group>
                 </Form>
