@@ -28,8 +28,10 @@ export default function Login({ history }) {
             } else {
                 if (obj.login === datas[0].email_funcionario) {
                     if (obj.senha === datas[0].senha_funcionario) {
+
                         const valido = await axios.post(APIlogin, obj);
-                        if(valido.data === 'done'){
+                        console.log(valido);
+                        if(valido){
                             history.push('/main/alunos');
                         }
                     }

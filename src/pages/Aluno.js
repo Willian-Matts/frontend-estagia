@@ -78,8 +78,17 @@ export default class Aluno extends Component {
             cidade_aluno: this.state.idcidade
         };
 
+
         if (obj.nome_aluno === "" || obj.CPF_aluno === "" || obj.periodo_aluno === "" || obj.data_nascimento_aluno === "" || obj.endereco_aluno === "" || obj.bairro_aluno === "" || obj.nome_orientador_aluno === "" || obj.email_aluno === "" || obj.telefone_aluno === "" || obj.matricula_aluno === "" || obj.cidade_aluno === "") {
             alert("Campo(s) não preenchidos!");
+
+
+        } else if (obj.CPF_aluno.split("").length < 14) {
+            alert("O CPF está inválido!");
+
+        } else if (obj.telefone_aluno.split("").length < 13) {
+            alert("Número de Telefone inválido!");
+
         } else {
 
             axios.put(APIalunoUpdate + this.state.index, obj);

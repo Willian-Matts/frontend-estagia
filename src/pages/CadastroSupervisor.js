@@ -69,6 +69,12 @@ export default class Cadastrosupervisor extends Component {
 
         if (obj.nome_supervisor === "" || obj.CPF_supervisor === "" || obj.email_supervisor === "" || obj.telefone_supervisor === "" || obj.formacao_supervisor === "" || obj.data_nascimento_supervisor === "" || obj.empresa_supervisor === "") {
             alert("Campo(s) não preenchidos!");
+        } else if (obj.CPF_supervisor.split("").length < 14) {
+            alert("O CPF está inválido!");
+
+        } else if (obj.telefone_supervisor.split("").length < 13) {
+            alert("Número de Telefone inválido!");
+
         } else {
 
             axios.post(APIsupervisorInserir, obj);

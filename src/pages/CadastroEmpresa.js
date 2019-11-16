@@ -67,6 +67,12 @@ export default class CadastroEmpresa extends Component {
 
         if (obj.nome_empresa === "" || obj.CNPJ === "" || obj.endereco_empresa === "" || obj.bairro_empresa === "" || obj.email_empresa === "" || obj.telefone_empresa === "" || obj.cidade_empresa === "") {
             alert("Campo(s) não preenchidos!");
+        } else if (obj.CNPJ.split("").length < 18) {
+            alert("O CNPJ está inválido!");
+
+        } else if (obj.telefone_empresa.split("").length < 13) {
+            alert("Número de Telefone inválido!");
+
         } else {
 
             axios.post(APIempresaInserir, obj);
