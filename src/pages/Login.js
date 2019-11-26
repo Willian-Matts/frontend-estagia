@@ -31,7 +31,7 @@ export default function Login({ history }) {
 
                         const valido = await axios.post(APIlogin, obj);
                         console.log(valido);
-                        if(valido){
+                        if(valido.data  === true){
                             history.push('/main/alunos');
                         }
                     }
