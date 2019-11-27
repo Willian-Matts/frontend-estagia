@@ -8,6 +8,7 @@ const APIestagioDelete = 'http://localhost:3001/deleteEstagio/';
 const APIalunoListar = 'http://localhost:3001/alunos';
 const APIempresaListar = 'http://localhost:3001/empresas';
 const APIsupervisorListar = 'http://localhost:3001/supervisores';
+const APIbusca = 'http://localhost:3001/buscarEstagio';
 
 export default class Estagio extends Component {
     _isMounted = false;
@@ -19,8 +20,10 @@ export default class Estagio extends Component {
             datas: [],
             alunos: [],
             empresas: [],
-            supervisores: []
+            supervisores: [],
+            // busca: false
         }
+        this.buscar = this.buscar.bind(this);
     }
 
     async componentDidMount() {
@@ -35,8 +38,30 @@ export default class Estagio extends Component {
         this._isMounted = false;
     }
 
+    async buscar(e) {
+        e.preventDefault();
+        // this.setState({
+        //     busca: true
+        // });
+        // this.componentDidMount();
+    }
+
     async listar() {
-        const { data: datas } = await axios.get(APIestagioListar);
+        if (this.refs.empresa.value !== "" || this.refs.inicio.value !== "" || this.refs.final.value !== "") {
+            const objeto = {
+                nome_empresa: document.getElementById("empresa").value,
+                data_inicio: document.getElementById("inicio").value,
+                data_final: document.getElementById("final").value,
+            }
+            console.log(objeto.nome_empresa);
+            console.log(objeto.data_inicio);
+            console.log(objeto.data_final);
+
+            var { data: datas } = await axios.post(APIbusca, objeto);
+
+        } else {
+            var { data: datas } = await axios.get(APIestagioListar);
+        }
         const { data: alunos } = await axios.get(APIalunoListar);
         const { data: empresas } = await axios.get(APIempresaListar);
         const { data: supervisores } = await axios.get(APIsupervisorListar);
@@ -91,11 +116,15 @@ export default class Estagio extends Component {
         this.refs.semanais.value = data.horas_semanais_estagio;
         this.refs.totais.value = data.horas_totais_estagio;
         this.refs.diarias.value = data.horas_diarias_estagio;
-        
+        console.log(this.refs.empresa.value);
+
         this.refs.setor.focus();
 
         this.setState({
             index: aluno,
+        });
+        this.setState({
+
         });
 
     }
@@ -108,6 +137,7 @@ export default class Estagio extends Component {
 
     render() {
         let datas = this.state.datas;
+        console.log(datas);
         let alunos = this.state.alunos;
         let empresas = this.state.empresas;
         let supervisores = this.state.supervisores;
@@ -163,7 +193,7 @@ export default class Estagio extends Component {
                                             <Form.Label>Aluno</Form.Label>
                                             <Form.Control as="select" multiple>
                                                 {alunos.map((aluno, i) =>
-                                                    <option key={i} ref="nome_aluno" onClick={(e) => this.setState({ idaluno: aluno.idaluno})}>{aluno.nome_aluno}</option>
+                                                    <option key={i} ref="nome_aluno" onClick={(e) => this.setState({ idaluno: aluno.idaluno })}>{aluno.nome_aluno}</option>
                                                 )}
                                             </Form.Control>
                                         </Col>
@@ -173,7 +203,7 @@ export default class Estagio extends Component {
                                             <Form.Label>Empresas</Form.Label>
                                             <Form.Control as="select" multiple>
                                                 {empresas.map((empresa, i) =>
-                                                    <option key={i} ref="nome_empresa" onClick={(e) => this.setState({ idempresa: empresa.idempresa})}>{empresa.nome_empresa}</option>
+                                                    <option key={i} ref="nome_empresa" onClick={(e) => this.setState({ idempresa: empresa.idempresa })}>{empresa.nome_empresa}</option>
                                                 )}
                                             </Form.Control>
                                         </Col>
@@ -183,7 +213,7 @@ export default class Estagio extends Component {
                                             <Form.Label>Supervisores</Form.Label>
                                             <Form.Control as="select" multiple>
                                                 {supervisores.map((supervisor, i) =>
-                                                    <option key={i} ref="nome_supervisor" onClick={(e) => this.setState({ idsupervisor: supervisor.idsupervisor})}>{supervisor.nome_supervisor}</option>
+                                                    <option key={i} ref="nome_supervisor" onClick={(e) => this.setState({ idsupervisor: supervisor.idsupervisor })}>{supervisor.nome_supervisor}</option>
                                                 )}
                                             </Form.Control>
                                         </Col>
@@ -195,6 +225,28 @@ export default class Estagio extends Component {
                             </Container>
                         </Accordion.Collapse>
                     </Accordion>
+                    <Container>
+                        <Form ref="form">
+                            <Form.Row>
+                                <Col>
+                                    <Form.Label><p className="p-form">Nome da empresa </p></Form.Label>
+                                    <Form.Control type="text" id="empresa" ref="empresa" placeholder="Nome da empresa" onChange={this.buscar} required="required"></Form.Control>
+                                </Col>
+                                <Col>
+                                    <Form.Label><p className="p-form">Data de inicio do estágio</p></Form.Label>
+                                    <Form.Control type="text" id="inicio" ref="inicio" placeholder="Data de inicio do estágio" onChange={this.buscar} required="required"></Form.Control>
+                                </Col>
+                                <Col>
+                                    <Form.Label><p className="p-form">Data de conclusão do estágio</p></Form.Label>
+                                    <Form.Control type="text" id="final" ref="final" placeholder="Data de conclusão do estágio" onChange={this.buscar} required="required"></Form.Control>
+                                </Col>
+                            </Form.Row>
+
+                            {/* <Container className="text-center">
+                                <Button variant="btn btn-estagia" onClick={(e) => this.buscar(e)}>Buscar</ Button>
+                            </Container> */}
+                        </Form>
+                    </Container>
                     <Jumbotron className="jumbo">
                         <pre>
                             {datas.map((data, i) =>
@@ -202,7 +254,6 @@ export default class Estagio extends Component {
                                     <ListGroup.Item className="card">
                                         <Accordion defaultActiveKey="1">
                                             <Card >
-
                                                 <Card.Header className="card-head sombra" >
                                                     <Accordion.Toggle as={Button} variant="link" eventKey="0">
                                                         <h5 className="h5-form">{data.nome_aluno}</h5>
