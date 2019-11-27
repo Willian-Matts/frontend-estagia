@@ -21,9 +21,7 @@ export default class Estagio extends Component {
             alunos: [],
             empresas: [],
             supervisores: [],
-            // busca: false
         }
-        this.buscar = this.buscar.bind(this);
     }
 
     async componentDidMount() {
@@ -38,30 +36,21 @@ export default class Estagio extends Component {
         this._isMounted = false;
     }
 
-    async buscar(e) {
-        e.preventDefault();
-        // this.setState({
-        //     busca: true
-        // });
-        // this.componentDidMount();
-    }
-
     async listar() {
+        var dados;
         if (this.refs.empresa.value !== "" || this.refs.inicio.value !== "" || this.refs.final.value !== "") {
             const objeto = {
                 nome_empresa: document.getElementById("empresa").value,
                 data_inicio: document.getElementById("inicio").value,
                 data_final: document.getElementById("final").value,
             }
-            console.log(objeto.nome_empresa);
-            console.log(objeto.data_inicio);
-            console.log(objeto.data_final);
 
-            var { data: datas } = await axios.post(APIbusca, objeto);
+            dados = await axios.post(APIbusca, objeto);
 
         } else {
-            var { data: datas } = await axios.get(APIestagioListar);
+            dados = await axios.get(APIestagioListar);
         }
+        var { data: datas } = dados;
         const { data: alunos } = await axios.get(APIalunoListar);
         const { data: empresas } = await axios.get(APIempresaListar);
         const { data: supervisores } = await axios.get(APIsupervisorListar);
@@ -137,7 +126,6 @@ export default class Estagio extends Component {
 
     render() {
         let datas = this.state.datas;
-        console.log(datas);
         let alunos = this.state.alunos;
         let empresas = this.state.empresas;
         let supervisores = this.state.supervisores;
@@ -230,15 +218,15 @@ export default class Estagio extends Component {
                             <Form.Row>
                                 <Col>
                                     <Form.Label><p className="p-form">Nome da empresa </p></Form.Label>
-                                    <Form.Control type="text" id="empresa" ref="empresa" placeholder="Nome da empresa" onChange={this.buscar} required="required"></Form.Control>
+                                    <Form.Control type="text" id="empresa" ref="empresa" placeholder="Nome da empresa" required="required"></Form.Control>
                                 </Col>
                                 <Col>
                                     <Form.Label><p className="p-form">Data de inicio do estágio</p></Form.Label>
-                                    <Form.Control type="text" id="inicio" ref="inicio" placeholder="Data de inicio do estágio" onChange={this.buscar} required="required"></Form.Control>
+                                    <Form.Control type="text" id="inicio" ref="inicio" placeholder="Data de inicio do estágio" required="required"></Form.Control>
                                 </Col>
                                 <Col>
                                     <Form.Label><p className="p-form">Data de conclusão do estágio</p></Form.Label>
-                                    <Form.Control type="text" id="final" ref="final" placeholder="Data de conclusão do estágio" onChange={this.buscar} required="required"></Form.Control>
+                                    <Form.Control type="text" id="final" ref="final" placeholder="Data de conclusão do estágio" required="required"></Form.Control>
                                 </Col>
                             </Form.Row>
 
@@ -250,7 +238,7 @@ export default class Estagio extends Component {
                     <Jumbotron className="jumbo">
                         <pre>
                             {datas.map((data, i) =>
-                                <ListGroup key={data.idestagio}>
+                                <ListGroup key={i}>
                                     <ListGroup.Item className="card">
                                         <Accordion defaultActiveKey="1">
                                             <Card >
