@@ -39,12 +39,14 @@ export default class Estagio extends Component {
     async listar() {
         var dados;
         if (this.refs.empresa.value !== "" || this.refs.inicio.value !== "" || this.refs.final.value !== "") {
+
             const objeto = {
                 nome_empresa: document.getElementById("empresa").value,
                 data_inicio: document.getElementById("inicio").value,
                 data_final: document.getElementById("final").value,
             }
-
+            console.log("a" + document.getElementById("inicio").value);
+            console.log("t" + objeto.data_inicio);
             dados = await axios.post(APIbusca, objeto);
 
         } else {
@@ -222,11 +224,11 @@ export default class Estagio extends Component {
                                 </Col>
                                 <Col>
                                     <Form.Label><p className="p-form">Data de inicio do estágio</p></Form.Label>
-                                    <Form.Control type="text" id="inicio" ref="inicio" placeholder="Data de inicio do estágio" required="required"></Form.Control>
+                                    <Form.Control type="date" id="inicio" ref="inicio" placeholder="Data de inicio do estágio" required="required"></Form.Control>
                                 </Col>
                                 <Col>
                                     <Form.Label><p className="p-form">Data de conclusão do estágio</p></Form.Label>
-                                    <Form.Control type="text" id="final" ref="final" placeholder="Data de conclusão do estágio" required="required"></Form.Control>
+                                    <Form.Control type="date" id="final" ref="final" placeholder="Data de conclusão do estágio" required="required"></Form.Control>
                                 </Col>
                             </Form.Row>
 
