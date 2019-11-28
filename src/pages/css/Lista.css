@@ -193,13 +193,13 @@ pre {
   font-size: 120%;
 }
 
-.border-link{
+.border-link {
   width: 100%;
-  border-bottom:0.2vh solid currentColor;
-  border-color: rgb(124,252,0);
+  border-bottom: 0.2vh solid currentColor;
+  border-color: rgb(124, 252, 0);
 }
 
-#linkCadastro{
+#linkCadastro {
   color: black;
   font-family: "phenomenaregular";
   font-size: 20px;

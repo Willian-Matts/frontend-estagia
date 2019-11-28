@@ -21,6 +21,7 @@ export default class Estagio extends Component {
             alunos: [],
             empresas: [],
             supervisores: [],
+            order: "nome_aluno"
         }
     }
 
@@ -44,9 +45,8 @@ export default class Estagio extends Component {
                 nome_empresa: document.getElementById("empresa").value,
                 data_inicio: document.getElementById("inicio").value,
                 data_final: document.getElementById("final").value,
+                ordem: this.state.order
             }
-            console.log("a" + document.getElementById("inicio").value);
-            console.log("t" + objeto.data_inicio);
             dados = await axios.post(APIbusca, objeto);
 
         } else {
@@ -230,11 +230,14 @@ export default class Estagio extends Component {
                                     <Form.Label><p className="p-form">Data de conclusão do estágio</p></Form.Label>
                                     <Form.Control type="date" id="final" ref="final" placeholder="Data de conclusão do estágio" required="required"></Form.Control>
                                 </Col>
+                                <Col>
+                                    <Form.Label><p className="p-form">Ordenar por</p></Form.Label>
+                                    <Form.Control as="select" multiple>
+                                        <option onClick={(e) => this.setState({ order: "nome_empresa"})}>Empresa</option>
+                                        <option onClick={(e) => this.setState({ order: "data_inicio_estagio"})}>Data início</option>
+                                    </Form.Control>
+                                </Col>
                             </Form.Row>
-
-                            {/* <Container className="text-center">
-                                <Button variant="btn btn-estagia" onClick={(e) => this.buscar(e)}>Buscar</ Button>
-                            </Container> */}
                         </Form>
                     </Container>
                     <Jumbotron className="jumbo">
