@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     marginLeft: 15
   },
   view: {
-    marginLeft: 190
+    marginLeft: 180
   },
   image: {
     margin: 10,
@@ -54,7 +54,7 @@ export default class GerarPDF extends React.Component {
 
   render() {
     return (
-      <PDFViewer width="90%" height="700" style={styles.view}>
+      <PDFViewer width="88.75%" height="1200" style={styles.view}>
         {/* <MyDocument busca={this.state.busca}/> */}
         <Document>
           <Page size="A4" style={styles.page}>
