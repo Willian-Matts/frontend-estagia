@@ -13,6 +13,7 @@ import CadastroAluno from './pages/CadastroAluno.js';
 import CadastroEmpresa from './pages/CadastroEmpresa.js';
 import CadastroSupervisor from './pages/CadastroSupervisor.js';
 import CadastroEstagio from './pages/CadastroEstagio.js';
+import gerarPDF from './pages/gerarPDF.js';
 
 // import axios from 'axios';
 // const APIsession = 'http://localhost:3001/login';
@@ -46,6 +47,7 @@ export default function Routes() {
             <Route path="/main/cadastroEmpresa" component={CadastroEmpresa} />
             <Route path="/main/cadastroSupervisor" component={CadastroSupervisor} />
             <Route path="/main/cadastroEstagio" component={CadastroEstagio} />
+            <Route path="/main/gerarPDF" component={gerarPDF} />
             {/* <Switch>
                 <Route path="/" exact component={Login} />
                 <Route path="/main" component={Main} />

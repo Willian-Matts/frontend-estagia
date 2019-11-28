@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './css/Lista.css';
 import axios from 'axios';
-import { GerarPDF } from './pdf/gerarPDF.js';
 import { Redirect } from "react-router-dom";
 import { Row, Button, Jumbotron, Card, Accordion, Container, ListGroup, Navbar, Col, Form, } from 'react-bootstrap';
 
@@ -111,7 +110,6 @@ export default class Estagio extends Component {
         this.refs.semanais.value = data.horas_semanais_estagio;
         this.refs.totais.value = data.horas_totais_estagio;
         this.refs.diarias.value = data.horas_diarias_estagio;
-        console.log(this.refs.empresa.value);
 
         this.refs.setor.focus();
 
@@ -124,11 +122,15 @@ export default class Estagio extends Component {
 
     }
 
-    gerarRelatorio(i) {
-        this.setState({
-            dados: this.state.datas[i],
+    async gerarRelatorio(i) {
+        var info =  this.state.datas[i]
+        info.data_inicio_estagio = this.dateFormat(info.data_inicio_estagio).split("-").join("/");
+        info.data_final_estagio = this.dateFormat(info.data_final_estagio).split("-").join("/");
+        await this.setState({
+            dados: info,
             redirect: true
         });
+        console.log(this.state.dados.idestagio);
     }
 
     dateFormat(date) {
@@ -144,13 +146,12 @@ export default class Estagio extends Component {
         let supervisores = this.state.supervisores;
 
         if (this.state.redirect) {
-            this._isMounted = false;
             return (
                 <Redirect
                     to={{
-                        pathname: "./pdf/gerarPDF.js",
+                        pathname: "./gerarPDF",
                         state: {
-                            busca: this.state.dados
+                            dados: this.state.dados
                         }
                     }}
                 />
