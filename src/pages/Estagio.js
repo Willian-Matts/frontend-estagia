@@ -37,7 +37,7 @@ export default class Estagio extends Component {
         this._isMounted = false;
     }
 
-    async listar() {
+    async listar(index) {
         var dados;
         if (this.refs.empresa.value !== "" || this.refs.inicio.value !== "" || this.refs.final.value !== "") {
 
@@ -232,9 +232,12 @@ export default class Estagio extends Component {
                                 </Col>
                                 <Col>
                                     <Form.Label><p className="p-form">Ordenar por</p></Form.Label>
-                                    <Form.Control as="select" multiple>
-                                        <option onClick={(e) => this.setState({ order: "nome_empresa"})}>Empresa</option>
-                                        <option onClick={(e) => this.setState({ order: "data_inicio_estagio"})}>Data início</option>
+                                    <Form.Control as="select" id="selectOrder" onChange={(e) => this.setState({ order: document.getElementById("selectOrder").value })}>
+                                        <option value="nome_aluno">Aluno</option>
+                                        <option value="nome_empresa">Empresa</option>
+                                        <option value="data_inicio_estagio">Data início</option>
+                                        {/* <option ref="itemEmpresa" value="nome_empresa" onChange={(e) => this.setState({ order: "nome_empresa"})}>Empresa</option> */}
+                                        {/* <option ref="itemData" value="data_inicio_estagio" onClick={(e) => this.setState({ order: "data_inicio_estagio"})}>Data início</option> */}
                                     </Form.Control>
                                 </Col>
                             </Form.Row>
