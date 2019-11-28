@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import './css/Lista.css';
 import axios from 'axios';
+import { GerarPDF } from './pdf/gerarPDF.js';
+import { Redirect } from "react-router-dom";
 import { Row, Button, Jumbotron, Card, Accordion, Container, ListGroup, Navbar, Col, Form, } from 'react-bootstrap';
+
 const APIestagioListar = 'http://localhost:3001/estagios';
 const APIestagioUpdate = 'http://localhost:3001/editarEstagio/';
 const APIestagioDelete = 'http://localhost:3001/deleteEstagio/';
@@ -21,10 +24,12 @@ export default class Estagio extends Component {
             alunos: [],
             empresas: [],
             supervisores: [],
+            empresa: "",
+            inicio: "",
+            final: "",
             order: "nome_aluno"
         }
     }
-
     async componentDidMount() {
         this._isMounted = true;
         this.listar();
@@ -37,9 +42,9 @@ export default class Estagio extends Component {
         this._isMounted = false;
     }
 
-    async listar(index) {
+    async listar() {
         var dados;
-        if (this.refs.empresa.value !== "" || this.refs.inicio.value !== "" || this.refs.final.value !== "") {
+        if (this.state.empresa !== "" || this.state.inicio !== "" || this.state.final !== "") {
 
             const objeto = {
                 nome_empresa: document.getElementById("empresa").value,
@@ -48,7 +53,6 @@ export default class Estagio extends Component {
                 ordem: this.state.order
             }
             dados = await axios.post(APIbusca, objeto);
-
         } else {
             dados = await axios.get(APIestagioListar);
         }
@@ -120,6 +124,13 @@ export default class Estagio extends Component {
 
     }
 
+    gerarRelatorio(i) {
+        this.setState({
+            dados: this.state.datas[i],
+            redirect: true
+        });
+    }
+
     dateFormat(date) {
         let format = date.replace(/T/, " ").split(" ");
         let d = format[0].split("-").reverse().join("-");
@@ -131,6 +142,20 @@ export default class Estagio extends Component {
         let alunos = this.state.alunos;
         let empresas = this.state.empresas;
         let supervisores = this.state.supervisores;
+
+        if (this.state.redirect) {
+            this._isMounted = false;
+            return (
+                <Redirect
+                    to={{
+                        pathname: "./pdf/gerarPDF.js",
+                        state: {
+                            busca: this.state.dados
+                        }
+                    }}
+                />
+            );
+        }
         return (
             <Jumbotron className="container-lista">
                 <Container className="box-nav">
@@ -220,15 +245,15 @@ export default class Estagio extends Component {
                             <Form.Row>
                                 <Col>
                                     <Form.Label><p className="p-form">Nome da empresa </p></Form.Label>
-                                    <Form.Control type="text" id="empresa" ref="empresa" placeholder="Nome da empresa" required="required"></Form.Control>
+                                    <Form.Control type="text" id="empresa" ref="empresa" placeholder="Nome da empresa" onChange={(e) => this.setState({empresa: document.getElementById("empresa").value})} required="required"></Form.Control>
                                 </Col>
                                 <Col>
                                     <Form.Label><p className="p-form">Data de inicio do estágio</p></Form.Label>
-                                    <Form.Control type="date" id="inicio" ref="inicio" placeholder="Data de inicio do estágio" required="required"></Form.Control>
+                                    <Form.Control type="date" id="inicio" ref="inicio" placeholder="Data de inicio do estágio" onChange={(e) => this.setState({inicio: document.getElementById("inicio").value})} required="required"></Form.Control>
                                 </Col>
                                 <Col>
                                     <Form.Label><p className="p-form">Data de conclusão do estágio</p></Form.Label>
-                                    <Form.Control type="date" id="final" ref="final" placeholder="Data de conclusão do estágio" required="required"></Form.Control>
+                                    <Form.Control type="date" id="final" ref="final" placeholder="Data de conclusão do estágio" onChange={(e) => this.setState({final: document.getElementById("final").value})} required="required"></Form.Control>
                                 </Col>
                                 <Col>
                                     <Form.Label><p className="p-form">Ordenar por</p></Form.Label>
@@ -323,6 +348,7 @@ export default class Estagio extends Component {
                                                             <ListGroup.Item>
                                                                 <Button id="btnRemover" variant="btn btn-danger-list" onClick={(e) => this.remover(e, data.idestagio)}>Remover</ Button>
                                                                 <Button variant="btn btn-list" onClick={(e) => this.editar(e, data.idestagio, i)}>Editar</ Button>
+                                                                <Button id="btnPDF" variant="info" onClick={(e) => this.gerarRelatorio(i)}>PDF</ Button>
                                                             </ListGroup.Item>
                                                         </Container>
 

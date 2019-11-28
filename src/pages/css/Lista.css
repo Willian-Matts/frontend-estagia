@@ -5,6 +5,10 @@
   font-style: normal;
 }
 
+#btnPDF{
+  margin-left: 1%;
+}
+
 h1 {
   font-family: "phenomenaregular";
   color: white;
